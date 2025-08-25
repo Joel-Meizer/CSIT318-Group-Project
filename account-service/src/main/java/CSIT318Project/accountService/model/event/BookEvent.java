@@ -1,4 +1,4 @@
-package CSIT318Project.bookService.model.event;
+package CSIT318Project.accountService.model.event;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
