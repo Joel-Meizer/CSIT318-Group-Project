@@ -18,7 +18,7 @@ public class EducationalResource extends AbstractAggregateRoot<Suggestion> {
     @Column
     private String summary;
 
-    @Column
+    @ElementCollection
     private List<EducationalResource> suggestedResources;
 
     public void Suggestion() {
