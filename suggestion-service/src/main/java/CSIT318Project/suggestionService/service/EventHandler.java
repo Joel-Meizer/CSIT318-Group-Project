@@ -1,7 +1,7 @@
-package CSIT318Project.bookService.service;
+package CSIT318Project.suggestionService.service;
 
-import CSIT318Project.bookService.model.event.BookEvent;
-import CSIT318Project.bookService.repository.BookEventRepository;
+import CSIT318Project.suggestionService.model.event.SuggestionEvent;
+import CSIT318Project.suggestionService.repository.SugestionEventRepository;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -9,21 +9,21 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Service
 public class EventHandler {
 
-    private final BookEventRepository bookEventRepository;
+    private final SuggestionEventRepository suggestionEventRepository;
 
-    EventHandler(BookEventRepository bookEventRepository) {
-        this.bookEventRepository = bookEventRepository;
+    EventHandler(SuggestionEventRepository suggestionEventRepository) {
+        this.suggestionEventRepository = suggestionEventRepository;
     }
 
     @TransactionalEventListener
-    public void handleBorrowEvent(BookEvent bookEvent){
-        bookEventRepository.save(bookEvent);
-        System.out.println(bookEvent);
+    public void handleBorrowEvent(SuggestionEvent suggestionEvent){
+        suggestionEventRepository.save(suggestionEvent);
+        System.out.println(suggestionEvent);
     }
 
     @EventListener
-    public void handleReturnEvent(BookEvent bookEvent) {
-        bookEventRepository.save(bookEvent);
-        System.out.println(bookEvent);
+    public void handleReturnEvent(SuggestionEvent suggestionEvent) {
+        suggestionEventRepository.save(suggestionEvent);
+        System.out.println(suggestionEvent);
     }
 }

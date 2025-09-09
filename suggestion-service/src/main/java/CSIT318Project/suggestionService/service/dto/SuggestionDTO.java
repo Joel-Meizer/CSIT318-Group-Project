@@ -1,11 +1,8 @@
-package CSIT318Project.bookService.service.dto;
+package CSIT318Project.suggestionService.service.dto;
 
-public class BookDTO {
+public class SuggestionDTO {
 
-    private String title;
-    private String isbn;
-
-    public BookDTO() {
+    public SuggestionDTO() {
     }
 
     public String getIsbn() {

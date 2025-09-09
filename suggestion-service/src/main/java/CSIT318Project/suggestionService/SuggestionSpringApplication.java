@@ -15,14 +15,13 @@ public class SuggestionSpringApplication {
 		org.springframework.boot.SpringApplication.run(SuggestionSpringApplication.class, args);
 	}
 
-
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
 
 	@Bean
-	public CommandLineRunner loadDatabase(BookRepository bookRepository) throws Exception {
+	public CommandLineRunner loadDatabase(SuggestionRepository suggestionRepository) throws Exception {
 		return args -> {};
 	}
 
