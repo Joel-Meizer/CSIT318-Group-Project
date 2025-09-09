@@ -1,7 +1,6 @@
-package CSIT318Project.suggestionservice;
+package CSIT318Project.suggestionService;
 
-import CSIT318Project.bookService.model.Book;
-import CSIT318Project.bookService.repository.BookRepository;
+import CSIT318Project.suggestionService.repository.SuggestionRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;

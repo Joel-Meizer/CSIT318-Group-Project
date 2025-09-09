@@ -1,7 +1,7 @@
 package CSIT318Project.suggestionService.service;
 
 import CSIT318Project.suggestionService.model.event.SuggestionEvent;
-import CSIT318Project.suggestionService.repository.SugestionEventRepository;
+import CSIT318Project.suggestionService.repository.SuggestionEventRepository;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionalEventListener;

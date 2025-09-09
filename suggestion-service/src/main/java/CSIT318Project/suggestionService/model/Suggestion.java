@@ -1,13 +1,10 @@
 package CSIT318Project.suggestionService.model;
 
-import CSIT318Project.suggestionService.model.EducationalResource;
-import CSIT318Project.suggestionService.model.event.suggestionEvent;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 @Entity
 public class Suggestion extends AbstractAggregateRoot<Suggestion> {
@@ -41,12 +38,12 @@ public class Suggestion extends AbstractAggregateRoot<Suggestion> {
         this.suggestedResources = suggestedResources;
     }
 
-    @Override
-    public String toString() {
-        return "";
-    }
+    //@Override
+    //public String toString() {
+    //    return "";
+    //}
 
-    public Suggestion generateSuggestion(PreferenceModel preferenceModel) {
+    //public Suggestion generateSuggestion(PreferenceModel preferenceModel) {
         // TODO
-    }
+    //}
 }
