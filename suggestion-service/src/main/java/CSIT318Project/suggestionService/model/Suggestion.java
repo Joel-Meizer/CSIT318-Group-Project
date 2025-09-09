@@ -16,7 +16,7 @@ public class Suggestion extends AbstractAggregateRoot<Suggestion> {
     @Column
     private String summary;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ElementCollection
     private List<EducationalResource> suggestedResources;
 
     public Suggestion() {

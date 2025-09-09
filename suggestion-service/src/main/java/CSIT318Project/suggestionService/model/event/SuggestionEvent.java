@@ -10,11 +10,14 @@ public class SuggestionEvent {
     @Id
     @GeneratedValue
     private long id;
+
     @Column
     private String eventName;
+
     @Column
     private String summary;
-    @OneToMany(cascade = CascadeType.ALL)
+
+    @ElementCollection
     private List<EducationalResource> suggestedResources;
 
     public SuggestionEvent() {
