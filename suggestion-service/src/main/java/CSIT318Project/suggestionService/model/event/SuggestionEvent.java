@@ -1,9 +1,9 @@
 package CSIT318Project.suggestionService.model.event;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import CSIT318Project.suggestionService.model.EducationalResource;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class SuggestionEvent {

@@ -2,7 +2,6 @@ package CSIT318Project.suggestionService.controller;
 
 import CSIT318Project.suggestionService.service.SuggestionService;
 import CSIT318Project.suggestionService.service.dto.SuggestionDTO;
-import CSIT318Project.suggestionService.service.dto.LibraryDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
