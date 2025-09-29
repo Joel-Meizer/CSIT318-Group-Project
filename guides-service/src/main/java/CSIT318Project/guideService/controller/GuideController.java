@@ -9,29 +9,29 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import csci318.model.LearningGuide;
-import com.example.csci318.service.LearningGuideService;
+import CSIT318Project.guideService.model.Guide;
+import CSIT318Project.guideService.service.GuideService;
 
 @RestController
-public class LearningGuideController {
-	private final GuideService learningGuideService;
+public class GuideController {
+	private final GuideService guideService;
 
-	public LearningGuideController(GuideService learningGuideService) {
-		this.learningGuideService = learningGuideService;
+	public GuideController(GuideService guideService) {
+		this.guideService = guideService;
 	}
 
-	@GetMapping("/learning-guides")
-	public List<Guide> getAllLearningGuides() {
-		return learningGuideService.findAll();
+	@GetMapping("/guides")
+	public List<Guide> getAllGuides() {
+		return guideService.findAll();
 	}
 
-	@GetMapping("/learning-guides/{id}")
-	public Guide getLearningGuide(@PathVariable UUID id) {
-		return learningGuideService.getLearningGuide(id);
+	@GetMapping("/guides/{id}")
+	public Guide getGuide(@PathVariable UUID id) {
+		return guideService.getGuide(id);
 	}
 
-	@PutMapping("/learning-guides")
-	public void createOrUpdateLearningGuide(@RequestBody Guide learningGuide) {
-		learningGuideService.saveLearningGuide(learningGuide);
+	@PutMapping("/guides")
+	public void createOrUpdateGuide(@RequestBody Guide guide) {
+		guideService.saveGuide(guide);
 	}
 }

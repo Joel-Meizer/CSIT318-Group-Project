@@ -13,20 +13,20 @@ import CSIT318Project.guideService.repository.GuideRepository;
 public class GuideService {
 	private final GuideRepository guideRepository;
 
-	public GuideService(GuideRepository learningGuideRepository) {
-		this.guideRepository = learningGuideRepository;
+	public GuideService(GuideRepository guideRepository) {
+		this.guideRepository = guideRepository;
 	}
 
-	public Guide getLearningGuide(UUID id) {
+	public Guide getGuide(UUID id) {
 		return guideRepository.findById(id).orElseThrow(
-				() -> new GuideNotFoundException("LearningGuide not found"));
+				() -> new GuideNotFoundException("Guide not found"));
 	}
 
 	public List<Guide> findAll() {
 		return guideRepository.findAll();
 	}
 
-	public void saveLearningGuide(Guide guide) {
+	public void saveGuide(Guide guide) {
 		guideRepository.save(guide);
 	}
 }
