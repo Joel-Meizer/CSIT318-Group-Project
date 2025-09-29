@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import CSIT318Project.guideService.model.Guide;
 import CSIT318Project.guideService.model.GuideNotFoundException;
-import CSIT318Project.guideService.repository.GuideRepository;
+import CSIT318Project.guideService.infrastructure.repository.GuideRepository;
 
 @Service
 public class GuideService {

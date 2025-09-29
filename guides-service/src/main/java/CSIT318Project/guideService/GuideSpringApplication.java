@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import CSIT318Project.guideService.model.ExternalVideo;
 import CSIT318Project.guideService.model.Guide;
 import CSIT318Project.guideService.model.RelatedSection;
-import CSIT318Project.guideService.repository.GuideRepository;
+import CSIT318Project.guideService.infrastructure.repository.GuideRepository;
 
 @SpringBootApplication
 public class GuideSpringApplication {

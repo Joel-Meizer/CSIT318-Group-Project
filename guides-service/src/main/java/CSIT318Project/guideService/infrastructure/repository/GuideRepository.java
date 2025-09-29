@@ -1,4 +1,4 @@
-package CSIT318Project.guideService.repository;
+package CSIT318Project.guideService.infrastructure.repository;
 
 import java.util.Optional;
 import java.util.UUID;
