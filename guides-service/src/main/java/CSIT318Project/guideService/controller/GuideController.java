@@ -5,8 +5,9 @@ import java.util.UUID;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import CSIT318Project.guideService.model.Guide;
@@ -20,17 +21,22 @@ public class GuideController {
 		this.guideService = guideService;
 	}
 
+	@GetMapping("/guide")
+	public Guide getGuideByResourceAndGoal(@RequestParam UUID resourceId, @RequestParam String researchGoal) {
+		return guideService.getGuide(resourceId, researchGoal);
+	}
+
 	@GetMapping("/guides")
 	public List<Guide> getAllGuides() {
 		return guideService.findAll();
 	}
 
-	@GetMapping("/guides/{id}")
+	@GetMapping("/guide/{id}")
 	public Guide getGuide(@PathVariable UUID id) {
 		return guideService.getGuide(id);
 	}
 
-	@PutMapping("/guides")
+	@PostMapping("/guide")
 	public void createOrUpdateGuide(@RequestBody Guide guide) {
 		guideService.saveGuide(guide);
 	}

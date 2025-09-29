@@ -17,6 +17,11 @@ public class GuideService {
 		this.guideRepository = guideRepository;
 	}
 
+	public Guide getGuide(UUID resourceId, String researchGoal) {
+		return guideRepository.findByResourceIdAndResearchGoal(resourceId, researchGoal).orElseThrow(
+				() -> new GuideNotFoundException("Guide not found"));
+	}
+
 	public Guide getGuide(UUID id) {
 		return guideRepository.findById(id).orElseThrow(
 				() -> new GuideNotFoundException("Guide not found"));
