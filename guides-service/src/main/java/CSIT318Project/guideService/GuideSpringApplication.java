@@ -34,9 +34,8 @@ public class GuideSpringApplication {
 			entry.setResearchGoal("Understand the basic structure of a Spring Boot service.");
 			entry.setSummary("A simple guide covering the main components: controller, service, and repository.");
 			entry.setRelatedSections(List.of(
-					new RelatedSection(2, 10),
-					new RelatedSection(20, 30),
-					new RelatedSection(40, 50)));
+					new RelatedSection("Introduction", "test"),
+					new RelatedSection("Body", "summary")));
 			entry.setExternalVideos(List.of(
 					new ExternalVideo("Spring Boot Tutorial for Beginners",
 							"https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1")));
@@ -49,9 +48,8 @@ public class GuideSpringApplication {
 			entry2.setResearchGoal("Learn how to create RESTful APIs with Spring Boot.");
 			entry2.setSummary("This guide explains how to set up REST endpoints using Spring MVC.");
 			entry2.setRelatedSections(List.of(
-					new RelatedSection(5, 15),
-					new RelatedSection(25, 35),
-					new RelatedSection(45, 55)));
+					new RelatedSection("Getting Started", "introduction"),
+					new RelatedSection("Creating Endpoints", "implementation")));
 			entry2.setExternalVideos(List.of(
 					new ExternalVideo("Building RESTful APIs with Spring Boot",
 							"https://www.youtube.com/watch?v=9SGDpanrc8U&list=RD9SGDpanrc8U&start_radio=1")));

@@ -48,7 +48,7 @@ public class GuideController {
 	}
 
 	@PostMapping("/guideAgent")
-	public String chat(@RequestParam String researchGoal, @RequestParam MultipartFile file) throws IOException {
+	public Guide chat(@RequestParam String researchGoal, @RequestParam MultipartFile file) throws IOException {
 		String bookContent = new String(file.getBytes(), StandardCharsets.UTF_8);
 		return guideAgent.generateGuide(researchGoal, bookContent).content();
 	}

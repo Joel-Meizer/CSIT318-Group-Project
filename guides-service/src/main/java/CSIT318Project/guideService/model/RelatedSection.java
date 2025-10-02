@@ -5,31 +5,23 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class RelatedSection {
 
-	private int startLine;
-	private int endLine;
+	private String sectionName;
+	private String summary;
 
 	public RelatedSection() {
 	}
 
-	public RelatedSection(int startLine, int endLine) {
-		this.startLine = startLine;
-		this.endLine = endLine;
+	public RelatedSection(String sectionName, String summary) {
+		this.sectionName = sectionName;
+		this.summary = summary;
 	}
 
-	// Getters and Setters
-	public int getStartLine() {
-		return startLine;
+	// Getters
+	public String getSectionName() {
+		return sectionName;
 	}
 
-	public void setStartLine(int startLine) {
-		this.startLine = startLine;
-	}
-
-	public int getEndLine() {
-		return endLine;
-	}
-
-	public void setEndLine(int endLine) {
-		this.endLine = endLine;
+	public String getSummary() {
+		return summary;
 	}
 }
