@@ -16,13 +16,14 @@ import org.springframework.web.multipart.MultipartFile;
 import CSIT318Project.guideService.model.Guide;
 import CSIT318Project.guideService.service.GuideAgent;
 import CSIT318Project.guideService.service.GuideService;
+import CSIT318Project.guideService.service.YoutubeService;
 
 @RestController
 public class GuideController {
 	private final GuideService guideService;
 	private final GuideAgent guideAgent;
 
-	public GuideController(GuideService guideService, GuideAgent guideAgent) {
+	public GuideController(GuideService guideService, GuideAgent guideAgent, YoutubeService youtubeService) {
 		this.guideService = guideService;
 		this.guideAgent = guideAgent;
 	}

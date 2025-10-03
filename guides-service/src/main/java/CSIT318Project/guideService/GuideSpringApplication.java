@@ -9,10 +9,10 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import CSIT318Project.guideService.infrastructure.repository.GuideRepository;
 import CSIT318Project.guideService.model.ExternalVideo;
 import CSIT318Project.guideService.model.Guide;
 import CSIT318Project.guideService.model.RelatedSection;
-import CSIT318Project.guideService.infrastructure.repository.GuideRepository;
 
 @SpringBootApplication
 public class GuideSpringApplication {
@@ -37,8 +37,10 @@ public class GuideSpringApplication {
 					new RelatedSection("Introduction", "test"),
 					new RelatedSection("Body", "summary")));
 			entry.setExternalVideos(List.of(
-					new ExternalVideo("Spring Boot Tutorial for Beginners",
-							"https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1")));
+					new ExternalVideo(
+							"https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1",
+							"Spring Boot Tutorial for Beginners",
+							"An introductory video on Spring Boot.")));
 
 			Guide saved = guideRepository.save(entry);
 			System.out.println("Preloaded " + saved);
@@ -51,8 +53,10 @@ public class GuideSpringApplication {
 					new RelatedSection("Getting Started", "introduction"),
 					new RelatedSection("Creating Endpoints", "implementation")));
 			entry2.setExternalVideos(List.of(
-					new ExternalVideo("Building RESTful APIs with Spring Boot",
-							"https://www.youtube.com/watch?v=9SGDpanrc8U&list=RD9SGDpanrc8U&start_radio=1")));
+					new ExternalVideo(
+							"https://www.youtube.com/watch?v=9SGDpanrc8U&list=RD9SGDpanrc8U&start_radio=1",
+							"Building RESTful APIs with Spring Boot",
+							"A comprehensive guide to building RESTful APIs using Spring Boot.")));
 
 			Guide saved2 = guideRepository.save(entry2);
 			System.out.println("Preloaded " + saved2);

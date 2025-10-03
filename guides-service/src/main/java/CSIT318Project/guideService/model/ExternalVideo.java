@@ -7,13 +7,15 @@ public class ExternalVideo {
 
 	private String url;
 	private String title;
+	private String description;
 
 	public ExternalVideo() {
 	}
 
-	public ExternalVideo(String url, String title) {
+	public ExternalVideo(String url, String title, String description) {
 		this.url = url;
 		this.title = title;
+		this.description = description;
 	}
 
 	// Getters
@@ -23,5 +25,9 @@ public class ExternalVideo {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 }
