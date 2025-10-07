@@ -18,38 +18,46 @@ public class SuggestionService {
     private final RestTemplate restTemplate;
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    SuggestionService(SuggestionRepository suggestionRepository, RestTemplate restTemplate,
-                ApplicationEventPublisher applicationEventPublisher) {
+    SuggestionService(SuggestionRepository suggestionRepository, RestTemplate restTemplate, ApplicationEventPublisher applicationEventPublisher) {
         this.suggestionRepository = suggestionRepository;
         this.restTemplate = restTemplate;
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
     public List<SuggestionDTO> getAllSuggestions() {
-        return suggestionRepository.findAll().stream()
-                .map(suggestion -> {
-                    SuggestionDTO suggestionDTO = new SuggestionDTO();
-                    return suggestionDTO;
-                }).collect(Collectors.toList());
+        return suggestionRepository.findAll().stream().map(suggestion -> {
+            SuggestionDTO suggestionDTO = new SuggestionDTO();
+            return suggestionDTO;
+        }).collect(Collectors.toList());
     }
 
     public SuggestionDTO getSuggestion(String suggestionId) {
         Suggestion suggestion = suggestionRepository.findById(suggestionId).orElseThrow(RuntimeException::new);
-        return new SuggestionDTO(suggestion.getEducationalResources());
+        return new SuggestionDTO(
+            suggestion.getSummary(),
+            suggestion.getEducationalResources()
+        );
     }
 
     public SuggestionDTO generateSuggestionForUserPreferences(int userId) {
-        SuggestionDTO suggestion = new SuggestionDTO();
-        return suggestion;
+        // API Call to the users account via their id, collect the user preferences
+        // Provide information from the user to the agentic element to collect me some educational resources to bundle into the SuggestionDTO
+
+        // Can be triggered via events OR API calls to this endpoint '/suggestions/generate/{userId}/userPreferences'
+        return new SuggestionDTO();
     }
 
     public SuggestionDTO generateSuggestionFromOrderHistory(int userId) {
-        SuggestionDTO suggestion = new SuggestionDTO();
-        return suggestion;
+        // API Call to the users account via their id, collect the order history
+        // Provide information from the user to the agentic element to collect me some educational resources to bundle into the SuggestionDTO
+
+        // Can be triggered via events OR API calls to this endpoint '/suggestions/generate/{userId}/orderHistory'
+        return new SuggestionDTO();
     }
 
     public SuggestionDTO generateSuggestionWithManualInputs(SuggestionGenerateModel inputModel) {
-        SuggestionDTO suggestion = new SuggestionDTO();
-        return suggestion;
+        // Manual search method to POST a body of data (for the accepted input type)
+        // Then provide a manual selection of suggested resources based on the inputs provided
+        return new SuggestionDTO();
     }
 }

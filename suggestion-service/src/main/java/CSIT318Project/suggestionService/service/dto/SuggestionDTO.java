@@ -11,11 +11,16 @@ public class SuggestionDTO {
 
     public SuggestionDTO () {}
 
-    public SuggestionDTO(List<EducationalResource> educationalResources) {
+    public SuggestionDTO(String summary, List<EducationalResource> educationalResources) {
+        this.summary = summary;
         this.educationalResourceList = educationalResources;
     }
 
     public void setEducationResources(List<EducationalResource> suggestedResources) {
         this.educationalResourceList = suggestedResources;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }
