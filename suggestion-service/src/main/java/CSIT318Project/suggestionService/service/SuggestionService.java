@@ -1,6 +1,8 @@
 package CSIT318Project.suggestionService.service;
 
+import CSIT318Project.suggestionService.model.EducationalResource;
 import CSIT318Project.suggestionService.model.Suggestion;
+import CSIT318Project.suggestionService.model.SuggestionGenerateModel;
 import CSIT318Project.suggestionService.repository.SuggestionRepository;
 import CSIT318Project.suggestionService.service.dto.SuggestionDTO;
 import org.springframework.context.ApplicationEventPublisher;
@@ -11,7 +13,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class SuggestionService {
-
 
     private final SuggestionRepository suggestionRepository;
     private final RestTemplate restTemplate;
@@ -34,7 +35,21 @@ public class SuggestionService {
 
     public SuggestionDTO getSuggestion(String suggestionId) {
         Suggestion suggestion = suggestionRepository.findById(suggestionId).orElseThrow(RuntimeException::new);
-        SuggestionDTO suggestionDTO = new SuggestionDTO();
-        return suggestionDTO;
+        return new SuggestionDTO(suggestion.getEducationalResources());
+    }
+
+    public SuggestionDTO generateSuggestionForUserPreferences(int userId) {
+        SuggestionDTO suggestion = new SuggestionDTO();
+        return suggestion;
+    }
+
+    public SuggestionDTO generateSuggestionFromOrderHistory(int userId) {
+        SuggestionDTO suggestion = new SuggestionDTO();
+        return suggestion;
+    }
+
+    public SuggestionDTO generateSuggestionWithManualInputs(SuggestionGenerateModel inputModel) {
+        SuggestionDTO suggestion = new SuggestionDTO();
+        return suggestion;
     }
 }
