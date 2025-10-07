@@ -17,7 +17,7 @@ public class Suggestion extends AbstractAggregateRoot<Suggestion> {
     private String summary;
 
     @ElementCollection
-    private List<EducationalResource> suggestedResources;
+    private List<EducationalResource> educationalResources;
 
     public Suggestion() {
     }
@@ -30,20 +30,33 @@ public class Suggestion extends AbstractAggregateRoot<Suggestion> {
         this.summary = summary;
     }
 
-    public List<EducationalResource> getSuggestedResources() {
-        return suggestedResources;
+    public List<EducationalResource> getEducationalResources() {
+        return educationalResources;
     }
 
-    public void setSuggestedResources(List<EducationalResource> suggestedResources) {
-        this.suggestedResources = suggestedResources;
+    public void setSuggestedResources(List<EducationalResource> educationalResources) {
+        this.educationalResources = educationalResources;
     }
 
-    //@Override
-    //public String toString() {
-    //    return "";
-    //}
+    @Override
+    public String toString() {
+        StringBuilder rb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-    //public Suggestion generateSuggestion(PreferenceModel preferenceModel) {
-        // TODO
-    //}
+        if(!educationalResources.isEmpty()) {
+            rb.append("Suggested Resources:\n");
+            int counter = 1;
+            for(EducationalResource resource : educationalResources) {
+                rb.append("Resource " + counter + ":\n").append(resource.toString());
+                counter++;
+            }
+        } else {
+            rb.append("No suggested resources");
+        }
+
+        sb.append("Summary: ").append(summary).append("\n");
+        sb.append(rb.toString()).append("\n");
+
+        return sb.toString();
+    }
 }
