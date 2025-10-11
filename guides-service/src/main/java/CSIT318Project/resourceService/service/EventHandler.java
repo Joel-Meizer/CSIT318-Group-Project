@@ -1,7 +1,7 @@
 package CSIT318Project.resourceService.service;
 
 import CSIT318Project.resourceService.model.event.BookEvent;
-import CSIT318Project.resourceService.repository.AccountEventRepository;
+import CSIT318Project.resourceService.repository.BookEventRepository;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -9,21 +9,21 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Service
 public class EventHandler {
 
-    private final AccountEventRepository accountEventRepository;
+    private final BookEventRepository bookEventRepository;
 
-    EventHandler(AccountEventRepository accountEventRepository) {
-        this.accountEventRepository = accountEventRepository;
+    EventHandler(BookEventRepository bookEventRepository) {
+        this.bookEventRepository = bookEventRepository;
     }
 
     @TransactionalEventListener
     public void handleBorrowEvent(BookEvent bookEvent){
-        accountEventRepository.save(bookEvent);
+        bookEventRepository.save(bookEvent);
         System.out.println(bookEvent);
     }
 
     @EventListener
     public void handleReturnEvent(BookEvent bookEvent) {
-        accountEventRepository.save(bookEvent);
+        bookEventRepository.save(bookEvent);
         System.out.println(bookEvent);
     }
 }

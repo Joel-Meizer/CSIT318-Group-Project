@@ -1,6 +1,6 @@
-package CSIT318Project.suggestionService.model;
-import CSIT318Project.suggestionService.Enums.KnowledgeLevel;
-import CSIT318Project.suggestionService.Enums.KnowledgeType;
+package CSIT318Project.resourceService.model;
+import CSIT318Project.resourceService.Enums.KnowledgeLevel;
+import CSIT318Project.resourceService.Enums.KnowledgeType;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import jakarta.persistence.*;
 import java.util.Date;
@@ -11,6 +11,7 @@ import java.util.UUID;
 public abstract class EducationalResource extends AbstractAggregateRoot<EducationalResource> {
 
     @Id
+    @GeneratedValue
     private UUID resourceId;
 
     @Column
@@ -38,8 +39,6 @@ public abstract class EducationalResource extends AbstractAggregateRoot<Educatio
     }
 
     public String getResourceId() { return resourceId.toString(); }
-
-    public void setResourceId(UUID resourceId) { this.resourceId = resourceId; }
 
     public String getTitle() {
         return title;

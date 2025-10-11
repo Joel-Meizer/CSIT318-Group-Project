@@ -10,12 +10,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="suggestion-service" />
+        <module name="resource-service" />
         <module name="order-service" />
         <module name="account-service" />
-        <module name="book-service" />
         <module name="guides-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="book-service" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -23,6 +26,7 @@
       <module name="book-service" options="-parameters" />
       <module name="guides-service" options="-parameters" />
       <module name="order-service" options="-parameters" />
+      <module name="resource-service" options="-parameters" />
       <module name="suggestion-service" options="-parameters" />
     </option>
   </component>
