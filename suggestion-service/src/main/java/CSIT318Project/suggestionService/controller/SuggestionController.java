@@ -1,12 +1,11 @@
 package CSIT318Project.suggestionService.controller;
-
-import CSIT318Project.suggestionService.Enums.KnowledgeType;
 import CSIT318Project.suggestionService.model.SuggestionGenerateModel;
 import CSIT318Project.suggestionService.service.SuggestionService;
 import CSIT318Project.suggestionService.service.dto.SuggestionDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class SuggestionController {
@@ -22,7 +21,7 @@ public class SuggestionController {
     }
 
     @GetMapping("/suggestions/{id}")
-    SuggestionDTO findSuggestion(@PathVariable String id) {
+    SuggestionDTO findSuggestion(@PathVariable UUID id) {
         return suggestionService.getSuggestion(id);
     }
 
@@ -32,7 +31,7 @@ public class SuggestionController {
     }
 
     @PostMapping("/suggestions/generate/{userId}/orderHistory")
-    SuggestionDTO generateSuggestionFromOrderHistory(@PathVariable int userId) {
+    SuggestionDTO generateSuggestionFromOrderHistory(@PathVariable UUID userId) {
         return suggestionService.generateSuggestionFromOrderHistory(userId);
     }
 
