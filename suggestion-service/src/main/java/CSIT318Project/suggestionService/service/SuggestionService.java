@@ -125,32 +125,32 @@ public class SuggestionService {
     }
 
     public Specification<EducationalResource> buildSpecification(SuggestionGenerateModel input) {
-        return (root, query, cb) -> {
-            List<Predicate> predicates = new ArrayList<>();
+        return (root, query, criteria) -> {
+            List<Predicate> searchPredicates = new ArrayList<>();
 
             if (input.title != null) {
-                predicates.add(cb.like(cb.lower(root.get("title")), "%" + input.title.toLowerCase() + "%"));
+                searchPredicates.add(criteria.like(criteria.lower(root.get("title")), "%" + input.title.toLowerCase() + "%"));
             }
             if (input.description != null) {
-                predicates.add(cb.like(cb.lower(root.get("description")), "%" + input.description.toLowerCase() + "%"));
+                searchPredicates.add(criteria.like(criteria.lower(root.get("description")), "%" + input.description.toLowerCase() + "%"));
             }
             if (input.authors != null) {
-                predicates.add(cb.isMember(input.authors, root.get("authors")));
+                searchPredicates.add(criteria.isMember(input.authors, root.get("authors")));
             }
             if (input.publicationDate != null) {
-                predicates.add(cb.greaterThan(root.get("publicationDate"), input.publicationDate));
+                searchPredicates.add(criteria.greaterThan(root.get("publicationDate"), input.publicationDate));
             }
             if (input.genre != null) {
-                predicates.add(cb.equal(cb.lower(root.get("genre")), input.genre.toLowerCase()));
+                searchPredicates.add(criteria.equal(criteria.lower(root.get("genre")), input.genre.toLowerCase()));
             }
             if (input.url != null) {
-                predicates.add(cb.equal(root.get("url"), input.url));
+                searchPredicates.add(criteria.equal(root.get("url"), input.url));
             }
             if (input.knowledgeLevel != null) {
-                predicates.add(cb.equal(root.get("knowledgeLevel"), input.knowledgeLevel));
+                searchPredicates.add(criteria.equal(root.get("knowledgeLevel"), input.knowledgeLevel));
             }
 
-            return cb.and(predicates.toArray(new Predicate[0]));
+            return criteria.and(searchPredicates.toArray(new Predicate[0]));
         };
     }
 
