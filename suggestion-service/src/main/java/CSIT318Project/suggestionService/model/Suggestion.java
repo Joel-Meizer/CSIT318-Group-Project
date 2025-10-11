@@ -16,11 +16,23 @@ public class Suggestion extends AbstractAggregateRoot<Suggestion> {
     @Column
     private String summary;
 
-    @ElementCollection
+    @ManyToMany
+    @JoinTable(
+            name = "suggestion_educational_resources",
+            joinColumns = @JoinColumn(name = "suggestion_suggestion_id"),
+            inverseJoinColumns = @JoinColumn(name = "educational_resources_resource_id")
+    )
     private List<EducationalResource> educationalResources;
 
     public Suggestion() {
     }
+
+    public Suggestion(String summary, List<EducationalResource> educationalResources) {
+        this.summary = summary;
+        this.educationalResources = educationalResources;
+    }
+
+    public UUID getId() { return suggestionId; }
 
     public String getSummary() {
         return summary;
