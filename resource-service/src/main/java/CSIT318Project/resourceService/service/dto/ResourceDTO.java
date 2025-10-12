@@ -21,6 +21,18 @@ public class ResourceDTO {
     public ResourceDTO() {
     }
 
+    public ResourceDTO(EducationalResource resource) {
+        this.resourceId = resource.getResourceId();
+        this.title = resource.getTitle();
+        this.description = resource.getDescription();
+        this.authors = resource.getAuthors();
+        this.publicationDate = resource.getPublicationDate();
+        this.genre = resource.getGenre();
+        this.url = resource.getUrl();
+        this.knowledgeLevel = resource.getKnowledgeLevel();
+        this.knowledgeType = resource.getKnowledgeType();
+    }
+
     public String getResourceId() {
         return resourceId;
     }

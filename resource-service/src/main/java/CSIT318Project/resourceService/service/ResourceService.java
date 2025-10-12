@@ -22,15 +22,15 @@ public class ResourceService {
 
     public List<ResourceDTO> getAllResources() {
         return resourceRepository.findAll().stream()
-                .map(book -> {
-                    ResourceDTO resourceDto = new ResourceDTO();
+                .map(resource -> {
+                    ResourceDTO resourceDto = new ResourceDTO(resource);
                     return resourceDto;
                 }).collect(Collectors.toList());
     }
 
     public ResourceDTO getResource(UUID resourceId) {
         EducationalResource resource = resourceRepository.findById(resourceId).orElseThrow(RuntimeException::new);
-        ResourceDTO resourceDto = new ResourceDTO();
+        ResourceDTO resourceDto = new ResourceDTO(resource);
         return resourceDto;
     }
 }
