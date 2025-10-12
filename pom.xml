@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>account-service</module>
-        <module>book-service</module>
+        <module>resource-service</module>
         <module>guides-service</module>
         <module>order-service</module>
         <module>suggestion-service</module>
