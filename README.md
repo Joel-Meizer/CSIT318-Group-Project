@@ -4,17 +4,17 @@ Welcome to our project! The project overall is an AI assisted educational resour
 service that provides users an easy way to access resources for educational purpose, however also suggesting resources
 that may be suitable, while also assisting in pinpointing key information within these resources collected.
 
-Altogether we have the following 5 microservices\
+Altogether we have the following 5 microservices
 - ### Account Service
 - ### Order Service
 - ### Guides Service (Agentic Component)
 - ### Resource Service
 - ### Suggestion Service (Agentic Component)
-\
+
 Below you should find outlined test cases alongside code to assist in hitting each use case of our system.
 # Introduction to our services + test code
 ## Account Service
-### 1. Creating an account
+1. Creating an account
 ```declarative
 curl -X POST http://localhost:3000/api/example \
 -H "Content-Type: application/json" \
@@ -58,15 +58,27 @@ curl -X GET http://localhost:3000/api/example
 ```
 
 ## Suggestion Service
-
+1. Get All existing suggestions within the suggestionRepository
 ```declarative
-curl -X POST http://localhost:3000/api/example \
--H "Content-Type: application/json" \
--d '{"name": "Alice", "age": 30}'
+curl -X GET http://localhost:8084/suggestions
 ```
-
+2. Get a stored suggestion by ID (substitute ```{suggestionId}``` with the ID of  suggestion collected from step 1)
 ```declarative
-curl -X GET http://localhost:3000/api/example
+curl -X GET http://localhost:8084/suggestions/{suggestionId}
+```
+3. Generate a suggestion via manual input filters (you can modify the body to accept any Educational Resource properties, in this case we are using the ```knowledgeLevel``` property)
+```declarative
+curl -X POST http://localhost:8084/suggestions/generate \
+-H "Content-Type: application/json" \
+-d '{"knowledgeLevel": "Beginner"}'
+```
+4. Generate a suggestion from a user's order history (Agentic Component) (substitute ```{userId}``` for a userId from step 2 of the account service tests)
+```declarative
+curl -X POST http://localhost:8084/suggestions/generate/{userId}/orderHistory
+```
+5. Generate a suggestion from a user's profile preferences (Agentic Component) (substitute ```{userId}``` for a userId from step 2 of the account service tests)
+```declarative
+curl -X POST http://localhost:8084/suggestions/generate/{userId}/userPreferences
 ```
 
 # Events Simulation
