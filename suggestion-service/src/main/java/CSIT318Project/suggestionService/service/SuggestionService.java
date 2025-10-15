@@ -4,16 +4,20 @@ import CSIT318Project.suggestionService.Enums.KnowledgeLevel;
 import CSIT318Project.suggestionService.Enums.KnowledgeType;
 import CSIT318Project.suggestionService.agentic.SuggestionAgent;
 import CSIT318Project.suggestionService.model.EducationalResource;
-import CSIT318Project.suggestionService.model.Inheritors.Book;
 import CSIT318Project.suggestionService.model.Suggestion;
 import CSIT318Project.suggestionService.model.SuggestionGenerateModel;
 import CSIT318Project.suggestionService.model.UserPreferenceModel;
 import CSIT318Project.suggestionService.repository.EducationalResourceRepository;
 import CSIT318Project.suggestionService.repository.SuggestionRepository;
 import CSIT318Project.suggestionService.service.dto.SuggestionDTO;
+import CSIT318Project.suggestionService.service.dto.SuggestedResourcesResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.*;
 
@@ -29,8 +33,11 @@ public class SuggestionService {
     @Autowired
     private SuggestionAgent suggestionAgent;
 
-    SuggestionService(SuggestionRepository suggestionRepository) {
+    private final HttpWebClient httpWebClient;
+
+    SuggestionService(SuggestionRepository suggestionRepository, HttpWebClient httpWebClient) {
         this.suggestionRepository = suggestionRepository;
+        this.httpWebClient = httpWebClient;
     }
 
     public List<SuggestionDTO> getAllSuggestions() {
@@ -55,54 +62,68 @@ public class SuggestionService {
         );
     }
 
-    public SuggestionDTO generateSuggestionForUserPreferences(int userId) {
-        // API Call to the users account via their id, collect the user preferences
-        // Provide information from the user to the agentic element to collect me some educational resources to bundle into the SuggestionDTO
+    public SuggestionDTO generateSuggestionForUserPreferences(UUID userId) {
+        UserPreferenceModel userPreferenceModel = httpWebClient.GetRESTAsync(String.format("http://localhost:8080/user/%s/userPreferences", userId), UserPreferenceModel.class);
 
-        SuggestionGenerateModel model = suggestionAgent.generateFromPreferences(
-                "Generate a SuggestionGenerateModel based on a UserPreferenceModel",
-                new UserPreferenceModel(),
-                educationalResourceRepository.findAll(),
-                educationalResourceRepository.findDistinctGenres(),
-                Arrays.asList(KnowledgeLevel.values()),
-                Arrays.asList(KnowledgeType.values())
+        StringBuilder userMessageBuilder = new StringBuilder();
+        userMessageBuilder.append("Here are the user's learning preferences. Please generate a List of EducationalResources based on them.\n\n");
+        userMessageBuilder.append("The response SuggestiongenerateModel must match with at least 1 EducationalResource.\n\n");
+        userMessageBuilder.append(userPreferenceModel.userPreferenceString).append("\n\n");
+
+        if (userPreferenceModel.genre != null) {
+            userMessageBuilder.append("My favourite genres are ").append(userPreferenceModel.genre).append(".\n");
+        }
+
+        if (userPreferenceModel.knowledgeLevel != null) {
+            userMessageBuilder.append("I don't want any EducationalResources that are a higher knowledge level than ").append(userPreferenceModel.knowledgeLevel.name()).append(".\n");
+        }
+
+        String userMessage = userMessageBuilder.toString();
+
+        SuggestedResourcesResponseDTO suggestedResources = suggestionAgent.generateFromPreferences(
+                userMessage,
+                educationalResourceRepository.findAll()
         ).content();
 
-        // Post Process the model in case we get back fields we dont want
-        model.title = null;
-        model.description = null;
-        model.authors = null;
-        model.publicationDate = null;
-        model.source = null;
-        model.url = null;
+        for(EducationalResource resource : suggestedResources.resources) {
+            System.out.println(resource.toString());
+        }
 
-        return SaveSuggestionCreateDTO("Collected suggested resources based on user preferences", educationalResourceRepository.findAll(buildSpecification(model)));
+        return SaveSuggestionCreateDTO("Collected suggested resources based on user preferences", suggestedResources.resources);
     }
 
     public SuggestionDTO generateSuggestionFromOrderHistory(UUID userId) {
-        // API Call to the users account via their id, collect the order history
-        // Provide information from the user to the agentic element to collect me some educational resources to bundle into the SuggestionDTO
+        String response = httpWebClient.GetRESTAsync(String.format("http://localhost:8080/user/%s/orderHistory", userId));
+        List<EducationalResource> previouslyOrdered;
 
-        List< EducationalResource> previouslyOrdered = new ArrayList<EducationalResource>();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            previouslyOrdered = mapper.readValue(
+                response,
+                new TypeReference<List<EducationalResource>>() {}
+            );
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to parse JSON response", e);
+        }
 
-        SuggestionGenerateModel model = suggestionAgent.generateFromOrderHistory(
-                "Generate a SuggestionGenerateModel based on previouslyOrdered ensuring if a search model is produced, we only provide validGenres, validLevels and validTypes",
-                previouslyOrdered,
-                educationalResourceRepository.findAll(),
-                educationalResourceRepository.findDistinctGenres(),
-                Arrays.asList(KnowledgeLevel.values()),
-                Arrays.asList(KnowledgeType.values())
+        StringBuilder userMessageBuilder = new StringBuilder();
+        userMessageBuilder.append("Here are the user's previously ordered items. Please generate a List of EducationalResources based on them.\n\n");
+        userMessageBuilder.append("The response SuggestiongenerateModel must match with at least 1 EducationalResource.\n\n");
+
+        userMessageBuilder.append("Below are my previously ordered items:\n\n");
+        for(EducationalResource resource : previouslyOrdered) {
+            userMessageBuilder.append(resource.toString());
+        }
+
+        String userMessage = userMessageBuilder.toString();
+
+        SuggestedResourcesResponseDTO suggestedResources = suggestionAgent.generateFromOrderHistory(
+                userMessage,
+                //previouslyOrdered,
+                educationalResourceRepository.findAll()
         ).content();
 
-        // Post Process the model in case we get back fields we dont want
-        model.title = null;
-        model.description = null;
-        model.authors = null;
-        model.publicationDate = null;
-        model.source = null;
-        model.url = null;
-
-        return SaveSuggestionCreateDTO("Collected suggested resources based on order history", educationalResourceRepository.findAll(buildSpecification(model)));
+        return SaveSuggestionCreateDTO("Collected suggested resources based on order history", suggestedResources.resources);
     }
 
     public SuggestionDTO generateSuggestionWithManualInputs(SuggestionGenerateModel inputModel) {
@@ -115,6 +136,7 @@ public class SuggestionService {
                 matchedResources
         );
 
+        educationalResourceRepository.saveAll(matchedResources);
         suggestionRepository.save(generatedSuggestion);
 
         SuggestionDTO dto = new SuggestionDTO();
@@ -153,5 +175,4 @@ public class SuggestionService {
             return cb.and(predicates.toArray(new Predicate[0]));
         };
     }
-
 }

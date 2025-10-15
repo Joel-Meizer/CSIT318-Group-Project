@@ -1,45 +1,30 @@
 package CSIT318Project.accountService.controller;
 
-import CSIT318Project.accountService.service.accountService;
+import CSIT318Project.accountService.service.AccountService;
 import CSIT318Project.accountService.service.dto.BookDTO;
 import CSIT318Project.accountService.service.dto.LibraryDTO;
+import CSIT318Project.accountService.model.UserPreferenceModel;
+import CSIT318Project.accountService.Enums.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class AccountController {
-    private final accountService accountService;
+    private final AccountService accountService;
 
-    AccountController(accountService accountService) {
+    AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
 
-    @GetMapping("/books")
-    List<BookDTO> allBooks() {
-        return accountService.getAllBooks();
-    }
-
-    @GetMapping("/books/{isbn}")
-    BookDTO findBook(@PathVariable String isbn) {
-        return accountService.getBook(isbn);
-    }
-
-    @GetMapping("/books/{isbn}/available")
-    List<LibraryDTO> availableLibraries(@PathVariable String isbn) {
-        return accountService.getAvailableLibraries(isbn);
-    }
-
-    @PutMapping("/books/borrow/{isbn}/{libraryId}")
-    void borrow(@PathVariable String isbn, @PathVariable String libraryId) {
-        accountService.borrowBook(isbn, Long.parseLong(libraryId));
-    }
-
-    @PutMapping("/books/return/{isbn}/{libraryId}")
-    void return1(@PathVariable String isbn, @PathVariable String libraryId) {
-        accountService.returnBook(isbn, Long.parseLong(libraryId));
+    @GetMapping("/user/{userId}/userPreferences")
+    UserPreferenceModel allBooks(@PathVariable UUID userId) {
+        UserPreferenceModel model = new UserPreferenceModel();
+        model.genre = "I have been programming for 10 years, I am looking for expert level Machine Learning resources";
+        return model;
     }
 }

@@ -1,10 +1,8 @@
 package CSIT318Project.resourceService;
 
 import CSIT318Project.resourceService.Enums.KnowledgeLevel;
+import CSIT318Project.resourceService.Enums.KnowledgeType;
 import CSIT318Project.resourceService.model.EducationalResource;
-import CSIT318Project.resourceService.model.Inheritors.Book;
-import CSIT318Project.resourceService.model.Inheritors.Paper;
-import CSIT318Project.resourceService.model.Inheritors.Video;
 import CSIT318Project.resourceService.repository.ResourceRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,21 +31,39 @@ public class ResourceSpringApplication {
 	@Bean
 	public CommandLineRunner loadDatabase(ResourceRepository resourceRepository) throws Exception {
         return args -> {
-            String[] genres = {"Programming", "AI Research", "Software Development", "Cybersecurity", "Data Science", "Machine Learning", "Cloud Computing", "Web Development", "Mobile Apps", "DevOps"};
-            String[] authors = {"Alice Johnson", "Bob Lee", "Dr. Jane Smith", "Carlos Vega", "Dana White", "Emily Zhang", "Frank Harris", "Grace Kim", "Henry Ford", "Isla Nguyen"};
+            String[] genres = {
+                    "Programming", "AI Research", "Software Development", "Cybersecurity", "Data Science", "Machine Learning",
+                    "Cloud Computing", "Web Development", "Mobile Apps", "DevOps",
+                    "Entrepreneurship", "Marketing", "Finance", "Accounting", "Economics", "Leadership", "Project Management",
+                    "Physics", "Chemistry", "Biology", "Environmental Science", "Mechanical Engineering", "Electrical Engineering", "Civil Engineering",
+                    "History", "Philosophy", "Literature", "Art History", "Music Theory", "Creative Writing", "Linguistics",
+                    "Psychology", "Sociology", "Political Science", "Anthropology", "Education", "Law", "Ethics",
+                    "Medicine", "Nutrition", "Public Health", "Fitness", "Mental Health", "Nursing", "Healthcare Administration",
+                    "Productivity", "Mindfulness", "Career Development", "Communication Skills", "Time Management", "Personal Finance",
+                    "English", "Spanish", "French", "Mandarin", "German", "Japanese", "Arabic"
+            };
+            String[] authors = {
+                    "Alice Johnson", "Bob Lee", "Dr. Jane Smith", "Carlos Vega", "Dana White", "Emily Zhang",
+                    "Frank Harris", "Grace Kim", "Henry Ford", "Isla Nguyen",
+                    "Amina El-Sayed", "Rajiv Patel", "Yuki Tanaka", "Liam O'Connor", "Chloe Dubois", "Mateo Silva",
+                    "Fatima Al-Mansouri", "Jasper Müller", "Anika Mehta", "Kwame Boateng", "Sofia Rossi", "Tariq Hassan",
+                    "Nina Petrova", "Mohammed Idris", "Lucía Fernández", "Noah Cohen", "Zara Bakshi", "Ethan Park",
+                    "Leila Haddad", "Sebastian Moreau", "Jun Ho Lee", "Camila Duarte", "Omar Rahman", "Maya Thompson",
+                    "Viktor Ivanov", "Thandiwe Ndlovu", "Giulia Bianchi", "Alejandro Cruz", "Mei Lin Chen", "Tyler Brooks"
+            };
             String[] urls = {"https://example.com/resource1", "https://example.com/resource2", "https://example.com/resource3", "https://example.com/resource4", "https://example.com/resource5"};
 
             List<EducationalResource> moreResources = new ArrayList<>();
             Random rand = new Random();
 
             for (int i = 1; i <= 100; i++) {
-                EducationalResource resource;
+                EducationalResource resource = new EducationalResource();
                 int type = rand.nextInt(3); // 0 = Book, 1 = Paper, 2 = Video
 
                 switch (type) {
-                    case 0 -> resource = new Book();
-                    case 1 -> resource = new Paper();
-                    default -> resource = new Video();
+                    case 0 -> resource.setKnowledgeType(KnowledgeType.Book);
+                    case 1 -> resource.setKnowledgeType(KnowledgeType.Paper);
+                    default -> resource.setKnowledgeType(KnowledgeType.Video);
                 }
 
                 resource.setTitle("Resource Title " + i);

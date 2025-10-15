@@ -1,4 +1,4 @@
-package CSIT318Project.bookService.service.dto;
+package CSIT318Project.accountService.service.dto;
 
 public class LibraryDTO {
 

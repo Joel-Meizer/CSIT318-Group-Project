@@ -1,6 +1,8 @@
-package CSIT318Project.suggestionService.model;
+package CSIT318Project.accountService.model;
 
-import CSIT318Project.suggestionService.Enums.*;
+import CSIT318Project.accountService.Enums.*;
+
+import java.util.Date;
 
 public class UserPreferenceModel {
     public String userPreferenceString = null;

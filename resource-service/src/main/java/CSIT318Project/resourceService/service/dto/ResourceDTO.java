@@ -2,6 +2,7 @@ package CSIT318Project.resourceService.service.dto;
 
 import CSIT318Project.resourceService.Enums.KnowledgeLevel;
 import CSIT318Project.resourceService.Enums.KnowledgeType;
+import CSIT318Project.resourceService.model.EducationalResource;
 
 import java.util.Date;
 import java.util.UUID;

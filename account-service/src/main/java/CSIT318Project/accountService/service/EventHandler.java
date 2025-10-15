@@ -1,7 +1,7 @@
-package CSIT318Project.bookService.service;
+package CSIT318Project.accountService.service;
 
-import CSIT318Project.bookService.model.event.BookEvent;
-import CSIT318Project.bookService.repository.AccountEventRepository;
+import CSIT318Project.accountService.model.event.BookEvent;
+import CSIT318Project.accountService.repository.AccountEventRepository;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionalEventListener;

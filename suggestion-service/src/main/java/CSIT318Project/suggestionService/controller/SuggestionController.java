@@ -26,7 +26,7 @@ public class SuggestionController {
     }
 
     @PostMapping("/suggestions/generate/{userId}/userPreferences")
-    SuggestionDTO generateSuggestionForUserPreferences(@PathVariable int userId) {
+    SuggestionDTO generateSuggestionForUserPreferences(@PathVariable UUID userId) {
         return suggestionService.generateSuggestionForUserPreferences(userId);
     }
 

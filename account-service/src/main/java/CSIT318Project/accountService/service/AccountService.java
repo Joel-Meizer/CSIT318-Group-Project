@@ -8,11 +8,11 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class AccountService {
 
-    private final AccountRepository AccountRepository;
+    private final AccountRepository accountRepository;
     private final RestTemplate restTemplate;
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    accountService(AccountRepository accountRepository, RestTemplate restTemplate,
+    AccountService(AccountRepository accountRepository, RestTemplate restTemplate,
                 ApplicationEventPublisher applicationEventPublisher) {
         this.accountRepository = accountRepository;
         this.restTemplate = restTemplate;
