@@ -9,6 +9,8 @@ import CSIT318Project.guideService.model.Guide;
 import CSIT318Project.guideService.model.GuideNotFoundException;
 import CSIT318Project.guideService.infrastructure.repository.GuideRepository;
 
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
 public class GuideService {
 	private final GuideRepository guideRepository;
@@ -33,5 +35,10 @@ public class GuideService {
 
 	public void saveGuide(Guide guide) {
 		guideRepository.save(guide);
+	}
+
+	@Transactional
+	public void deleteByResourceId(UUID resourceId) {
+		guideRepository.deleteByResourceId(resourceId);
 	}
 }
