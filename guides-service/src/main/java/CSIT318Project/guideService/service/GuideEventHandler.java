@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import CSIT318Project.guideService.model.event.ResourceContentUpdatedEvent;
+import CSIT318Project.events.ResourceContentUpdatedEvent;
 
 @Configuration
 public class GuideEventHandler {

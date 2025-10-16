@@ -1,4 +1,4 @@
-package CSIT318Project.guideService.model.event;
+package CSIT318Project.events;
 
 import java.util.UUID;
 
