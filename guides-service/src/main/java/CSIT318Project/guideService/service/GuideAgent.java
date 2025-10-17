@@ -14,9 +14,9 @@ public interface GuideAgent {
 			    Your instructions are:
 			    1.  **Analyze:** Thoroughly read the entire document provided in the user message.
 			    2.  **Extract:** Based on the user's research goal, identify the most relevant subchapter and subsections of the document. Make sure you identify the smallest section unit of that document, not a big chapter or section, just a small sub one. Omit all sections that do not directly contribute to the research goal. Omit all summary and introduction sections.
-			    3.  **Populate:** Return the relevant chapters and a brief summary for each section.
-				4.  **Search Videos:** Formulate multiple queries and use the `searchVideos` tool to find the most relevant external videos that can help the user understand the topic better.
-			    5. 	**Suggest Videos:** Pick 3 most relevant external videos from the results, ideally tackling different aspects of the research goal or different levels of understanding and thoroughness of the content. Then recommend them to the user.
+			    3.  **Populate:** Return the relevant chapters and a brief summary for each section. Return an empty list if no relevant sections are found.
+				4.  **Search Videos:** Formulate multiple queries and use the `searchVideos` tool to find the most relevant external videos that can help the user understand the document better. Make sure they are all directly relevant to the research goal **and** the document content.
+			    5. 	**Suggest Videos:** Pick 3 most relevant external videos from the results, ideally tackling different aspects of the research goal or different levels of understanding and thoroughness of the content. Then recommend them to the user. If you cannot find any relevant videos then return an empty list.
 				6.  **Summarise**: Provide a concise summary of the entire guide.
 			""")
 	@UserMessage("""

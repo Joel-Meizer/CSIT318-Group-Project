@@ -52,7 +52,6 @@ public class SuggestionService {
             .collect(Collectors.toList());
     }
 
-
     public SuggestionDTO getSuggestion(UUID suggestionId) {
         Suggestion suggestion = suggestionRepository.findById(suggestionId).orElseThrow(RuntimeException::new);
         return new SuggestionDTO(
@@ -119,7 +118,7 @@ public class SuggestionService {
 
         SuggestedResourcesResponseDTO suggestedResources = suggestionAgent.generateFromOrderHistory(
                 userMessage,
-                //previouslyOrdered,
+                previouslyOrdered,
                 educationalResourceRepository.findAll()
         ).content();
 
