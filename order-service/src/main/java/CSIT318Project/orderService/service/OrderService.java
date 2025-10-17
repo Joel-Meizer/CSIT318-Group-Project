@@ -1,14 +1,17 @@
 package CSIT318Project.orderService.service;
 
 import CSIT318Project.orderService.model.Order;
+import CSIT318Project.orderService.model.OrderItem;
 import CSIT318Project.orderService.model.OrderStatus;
 import CSIT318Project.orderService.model.OrderPlacedEvent;
+import CSIT318Project.orderService.model.OrderCompletedEvent;
 import CSIT318Project.orderService.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -51,5 +54,31 @@ public class OrderService {
 
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
+    }
+
+    @Transactional
+    public Order completeOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        order.setStatus(OrderStatus.DELIVERED);
+        Order completedOrder = orderRepository.save(order);
+
+        try {
+            List<Long> resourceIds = completedOrder.getItems().stream()
+                    .map(OrderItem::getProductId)
+                    .collect(Collectors.toList());
+
+            OrderCompletedEvent event = new OrderCompletedEvent(
+                    String.valueOf(completedOrder.getUserId()),
+                    String.valueOf(completedOrder.getId()),
+                    resourceIds
+            );
+            orderEventPublisher.publishOrderCompleted(event);
+        } catch (Exception e) {
+            System.err.println("⚠️ Failed to publish order completed event: " + e.getMessage());
+        }
+
+        return completedOrder;
     }
 }

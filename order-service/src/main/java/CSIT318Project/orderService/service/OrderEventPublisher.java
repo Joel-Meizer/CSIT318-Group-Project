@@ -1,6 +1,7 @@
 package CSIT318Project.orderService.service;
 
 import CSIT318Project.orderService.model.OrderPlacedEvent;
+import CSIT318Project.orderService.model.OrderCompletedEvent;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,15 @@ public class OrderEventPublisher {
             System.out.println("✅ Event published: Order " + event.getOrderId());
         } catch (Exception e) {
             System.err.println("❌ Failed to publish event: " + e.getMessage());
+        }
+    }
+
+    public void publishOrderCompleted(OrderCompletedEvent event) {
+        try {
+            kafkaTemplate.send("order-completed", event.getUserId(), event);
+            System.out.println("✅ OrderCompletedEvent published: User " + event.getUserId());
+        } catch (Exception e) {
+            System.err.println("❌ Failed to publish OrderCompletedEvent: " + e.getMessage());
         }
     }
 }
