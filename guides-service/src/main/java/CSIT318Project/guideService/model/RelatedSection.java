@@ -5,20 +5,20 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class RelatedSection {
 
-	private String sectionName;
+	private String name;
 	private String summary;
 
 	public RelatedSection() {
 	}
 
 	public RelatedSection(String sectionName, String summary) {
-		this.sectionName = sectionName;
+		this.name = sectionName;
 		this.summary = summary;
 	}
 
 	// Getters
-	public String getSectionName() {
-		return sectionName;
+	public String getName() {
+		return name;
 	}
 
 	public String getSummary() {
