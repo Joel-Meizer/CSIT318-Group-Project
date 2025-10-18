@@ -11,7 +11,7 @@
 	<groupId>com.library</groupId>
 	<artifactId>Accounts-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Accounts-service</name>
+	<name>accounts-service</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
