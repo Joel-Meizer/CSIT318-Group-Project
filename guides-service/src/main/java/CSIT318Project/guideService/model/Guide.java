@@ -37,6 +37,10 @@ public class Guide {
 	public Guide() {
 	}
 
+	public UUID getId() {
+		return id;
+	}
+
 	// Getters and Setters
 	public UUID getResourceId() {
 		return resourceId;

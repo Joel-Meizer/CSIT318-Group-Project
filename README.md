@@ -13,6 +13,18 @@ Altogether we have the following 5 microservices
 
 Below you should find outlined test cases alongside code to assist in hitting each use case of our system.
 # Introduction to our services + test code
+## Prerequisites:
+- `Google Gemini API Key` (can be created at https://aistudio.google.com/api-keys):
+  - Create a new environment variable for both the Guide-Service and Suggestion-Service, it must be formatted `GEMINI_API_KEY={api_key}`
+- `Apache Kafka` must be installed on your system:
+  - Download a binary package of Apache Kafka (e.g., kafka_2.13-3.7.0.tgz) from https://kafka.apache.org/downloads and unzip it to a directory, e.g., C:\kafka—Windows does not like a complex path name (!).
+  - Use the following two commands in the Windows CMD (one in each window) to start Kafka:
+```
+C:\kafka\bin\windows\zookeeper-server-start.bat C:\kafka\config\zookeeper.properties
+```
+```
+C:\kafka\bin\windows\kafka-server-start.bat C:\kafka\config\server.properties
+```
 ## Account Service
 1. Creating an account
 ```
@@ -72,11 +84,8 @@ curl -X POST http://localhost:8084/suggestions/generate/{userId}/userPreferences
 ```
 
 # Events Simulation
-- Some of the previously completed actions will trigger events handled by apache kafka or the spring application event repository methods. To see these events take place, run the following command at the directory ``../CSIT318-Group-Project/``
-```
-apache kafka startup cmd
-```
-
+If you haven't already, ensure Apache Kafka is running on your machine:\
+[Go to Prerequisites](#prerequisites) and follow the Apache Kafka cmd steps
 # Streaming Simulation
 ```
 example for streaming simulation

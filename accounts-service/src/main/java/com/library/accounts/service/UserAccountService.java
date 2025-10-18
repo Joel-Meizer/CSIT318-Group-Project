@@ -65,5 +65,13 @@ public class UserAccountService {
             membershipRepo.save(m);
         }
     }
+
+    @Transactional
+    public UserAccount updateUserPreferences(Long id, UserPreferenceModel userPreferences) {
+        UserAccount user = userRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        user.setUserPreferences(userPreferences);
+        return userRepo.save(user);
+    }
 }
 

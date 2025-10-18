@@ -5,13 +5,15 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED) // Enables subclassing like Paper, Book, etc.
-public abstract class EducationalResource extends AbstractAggregateRoot<EducationalResource> {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class EducationalResource {
 
     @Id
-    @GeneratedValue
     private UUID resourceId;
 
     @Column
@@ -35,8 +37,14 @@ public abstract class EducationalResource extends AbstractAggregateRoot<Educatio
     @Column
     private KnowledgeLevel knowledgeLevel;
 
-    public void EducationalResource() {
-    }
+    @Column
+    private KnowledgeType knowledgeType;
+
+    public EducationalResource() {}
+
+    public void EducationalResource() {}
+
+    public void setResourceId(UUID resourceId) { this.resourceId = resourceId; }
 
     public String getResourceId() { return resourceId.toString(); }
 
@@ -72,7 +80,9 @@ public abstract class EducationalResource extends AbstractAggregateRoot<Educatio
 
     public void setKnowledgeLevel(KnowledgeLevel knowledgeLevel) { this.knowledgeLevel = knowledgeLevel; }
 
-    public abstract KnowledgeType getKnowledgeType();
+    public KnowledgeType getKnowledgeType() { return knowledgeType; }
+
+    public void setKnowledgeType(KnowledgeType knowledgeType) { this.knowledgeType = knowledgeType; }
 
     @Override
     public String toString() {

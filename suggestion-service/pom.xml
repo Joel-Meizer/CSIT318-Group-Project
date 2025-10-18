@@ -37,7 +37,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
         <!-- AI Dependencies -->
         <dependency>
             <groupId>dev.langchain4j</groupId>
@@ -54,6 +57,7 @@
             <artifactId>langchain4j-google-ai-gemini-spring-boot-starter</artifactId>
             <version>${langchain4j.beta-version}</version>
         </dependency>
+
     </dependencies>
 
     <build>

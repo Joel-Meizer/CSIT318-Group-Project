@@ -43,6 +43,9 @@ public class UserAccount {
     @JoinColumn(name = "membership_id")
     private Membership membership;
 
+    @Embedded
+    private UserPreferenceModel userPreferences;
+
     public UserAccount() {}
 
     public UserAccount(String email, String firstName, String lastName) {
@@ -66,5 +69,8 @@ public class UserAccount {
 
     public Membership getMembership() { return membership; }
     public void setMembership(Membership membership) { this.membership = membership; }
+
+    public UserPreferenceModel getUserPreferences() { return userPreferences; }
+    public void setUserPreferences(UserPreferenceModel userPreferences) { this.userPreferences = userPreferences; }
 }
 

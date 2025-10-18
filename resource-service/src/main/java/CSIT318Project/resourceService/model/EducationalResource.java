@@ -7,8 +7,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED) // Enables subclassing like Paper, Book, etc.
-public abstract class EducationalResource extends AbstractAggregateRoot<EducationalResource> {
+public class EducationalResource {
 
     @Id
     @GeneratedValue
@@ -34,6 +33,9 @@ public abstract class EducationalResource extends AbstractAggregateRoot<Educatio
 
     @Column
     private KnowledgeLevel knowledgeLevel;
+
+    @Column
+    private KnowledgeType knowledgeType;
 
     public void EducationalResource() {
     }
@@ -72,7 +74,9 @@ public abstract class EducationalResource extends AbstractAggregateRoot<Educatio
 
     public void setKnowledgeLevel(KnowledgeLevel knowledgeLevel) { this.knowledgeLevel = knowledgeLevel; }
 
-    public abstract KnowledgeType getKnowledgeType();
+    public KnowledgeType getKnowledgeType() { return knowledgeType; }
+
+    public void setKnowledgeType(KnowledgeType knowledgeType) { this.knowledgeType = knowledgeType; }
 
     @Override
     public String toString() {
