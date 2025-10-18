@@ -2,19 +2,20 @@ package CSIT318Project.orderService.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 public class OrderCompletedEvent {
 
     private String userId;
     private String orderId;
-    private List<Long> resourceIds;
+    private List<UUID> resourceIds;
     private LocalDateTime timestamp;
 
     public OrderCompletedEvent() {
         this.timestamp = LocalDateTime.now();
     }
 
-    public OrderCompletedEvent(String userId, String orderId, List<Long> resourceIds) {
+    public OrderCompletedEvent(String userId, String orderId, List<UUID> resourceIds) {
         this.userId = userId;
         this.orderId = orderId;
         this.resourceIds = resourceIds;
@@ -27,8 +28,8 @@ public class OrderCompletedEvent {
     public String getOrderId() { return orderId; }
     public void setOrderId(String orderId) { this.orderId = orderId; }
 
-    public List<Long> getResourceIds() { return resourceIds; }
-    public void setResourceIds(List<Long> resourceIds) { this.resourceIds = resourceIds; }
+    public List<UUID> getResourceIds() { return resourceIds; }
+    public void setResourceIds(List<UUID> resourceIds) { this.resourceIds = resourceIds; }
 
     public LocalDateTime getTimestamp() { return timestamp; }
     public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
