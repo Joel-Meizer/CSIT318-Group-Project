@@ -97,7 +97,6 @@ public class UserAccountController {
         }
     }
 
-<<<<<<< HEAD
     @GetMapping("/{id}/preferences")
     public ResponseEntity<UserPreferenceModel> getUserPreferences(@PathVariable Long id) {
         return userAccountRepository.findById(id)
@@ -133,7 +132,7 @@ public class UserAccountController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-=======
+
     @PatchMapping("/{id}/update-preferences")
     public ResponseEntity<Void> updateUserPreferences(@PathVariable Long id, @RequestBody UserPreferenceModel pref) {
         try {
@@ -150,6 +149,5 @@ public class UserAccountController {
                 .map(user -> ResponseEntity.ok(user.getUserPreferences()))
                 .orElse(ResponseEntity.notFound().build());
     }
->>>>>>> 10e5c376212176dd6293dfc1837f885e4cc34ce7
 }
 
