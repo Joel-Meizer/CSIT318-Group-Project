@@ -1,7 +1,8 @@
 package com.library.accounts.enums;
 
 public enum KnowledgeType {
-    Paper,
-    Book,
-    Video
+    THEORETICAL,
+    PRACTICAL,
+    RESEARCH,
+    GENERAL
 }

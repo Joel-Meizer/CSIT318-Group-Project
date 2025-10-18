@@ -15,8 +15,36 @@ public class UserAccountController {
 
     private final UserAccountService service;
 
-    public UserAccountController(UserAccountService service) {
+    private final UserAccountRepository userAccountRepository;
+    private final UserEventPublisher eventPublisher;
+
+    public UserAccountController(UserAccountService service, UserAccountRepository repo, UserEventPublisher publisher) {
         this.service = service;
+        this.userAccountRepository = repo;
+        this.eventPublisher = publisher;
+    }
+
+    @PostMapping
+    public ResponseEntity<UserAccount> createUser(@RequestBody UserAccount user) {
+        UserAccount saved = userAccountRepository.save(user);
+        eventPublisher.publishUserCreated(saved.getId(), saved.getEmail(),
+                saved.getFirstName(), saved.getLastName());
+        return ResponseEntity.ok(saved);
+    }
+
+    @PostMapping("/{id}/cancel-membership")
+    public ResponseEntity<String> cancelMembership(@PathVariable Long id) {
+        Optional<UserAccount> userOpt = userAccountRepository.findById(id);
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        UserAccount user = userOpt.get();
+        user.getMembership().setActive(false);
+        userAccountRepository.save(user);
+
+        eventPublisher.publishMembershipCancelled(id);
+        return ResponseEntity.ok("Membership cancelled for user ID " + id);
     }
 
     @GetMapping
@@ -68,6 +96,42 @@ public class UserAccountController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/{id}/preferences")
+    public ResponseEntity<UserPreferenceModel> getUserPreferences(@PathVariable Long id) {
+        return userAccountRepository.findById(id)
+                .map(user -> {
+                    UserPreferenceModel pref = new UserPreferenceModel(
+                            user.getPreferredGenres(),
+                            user.getKnowledgeLevel(),
+                            user.getKnowledgeType()
+                    );
+                    return ResponseEntity.ok(pref);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{id}/research-goal")
+    public ResponseEntity<ResearchGoalDTO> getUserResearchGoal(@PathVariable Long id) {
+        return userAccountRepository.findById(id)
+                .map(user -> ResponseEntity.ok(new ResearchGoalDTO(user.getResearchGoal())))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}/research-goal")
+    public ResponseEntity<ResearchGoalDTO> updateResearchGoal(
+            @PathVariable Long id,
+            @RequestBody ResearchGoalDTO newGoal) {
+
+        return userAccountRepository.findById(id)
+                .map(user -> {
+                    user.setResearchGoal(newGoal.getResearchGoal());
+                    userAccountRepository.save(user);
+                    return ResponseEntity.ok(new ResearchGoalDTO(user.getResearchGoal()));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 
     @PatchMapping("/{id}/update-preferences")
     public ResponseEntity<Void> updateUserPreferences(@PathVariable Long id, @RequestBody UserPreferenceModel pref) {

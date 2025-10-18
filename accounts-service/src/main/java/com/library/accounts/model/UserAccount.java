@@ -17,6 +17,26 @@ public class UserAccount {
     private String firstName;
     private String lastName;
 
+    @ElementCollection
+    private List<String> preferredGenres;
+
+    @Enumerated(EnumType.STRING)
+    private KnowledgeLevel knowledgeLevel;
+
+    @Enumerated(EnumType.STRING)
+    private KnowledgeType knowledgeType;
+
+    private String researchGoal;
+
+    public String getResearchGoal() {
+        return researchGoal;
+    }
+
+    public void setResearchGoal(String researchGoal) {
+        this.researchGoal = researchGoal;
+    }
+
+
     private Instant createdAt = Instant.now();
 
     @OneToOne(cascade = CascadeType.ALL)
