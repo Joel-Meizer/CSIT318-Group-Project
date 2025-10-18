@@ -6,7 +6,3 @@ public enum KnowledgeType {
     RESEARCH,
     GENERAL
 }
-    Paper,
-    Book,
-    Video
-}

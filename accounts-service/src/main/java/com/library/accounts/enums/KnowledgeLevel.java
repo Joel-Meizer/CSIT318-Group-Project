@@ -6,11 +6,4 @@ public enum KnowledgeLevel {
     INTERMEDIATE,
     ADVANCED,
     EXPERT
-public enum KnowledgeLevel {
-    Novice,
-    Beginner,
-    Intermediate,
-    Proficient,
-    Expert,
-    Authority
 }
