@@ -68,5 +68,22 @@ public class UserAccountController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PatchMapping("/{id}/update-preferences")
+    public ResponseEntity<Void> updateUserPreferences(@PathVariable Long id, @RequestBody UserPreferenceModel pref) {
+        try {
+            service.updateUserPreferences(id, pref);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}/userPreferences")
+    public ResponseEntity<UserPreferenceModel> getUserPreferences(@PathVariable Long id) {
+        return service.findById(id)
+                .map(user -> ResponseEntity.ok(user.getUserPreferences()))
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
 

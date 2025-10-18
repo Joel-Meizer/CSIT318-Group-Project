@@ -26,12 +26,12 @@ public class SuggestionController {
     }
 
     @PostMapping("/suggestions/generate/{userId}/userPreferences")
-    SuggestionDTO generateSuggestionForUserPreferences(@PathVariable UUID userId) {
+    SuggestionDTO generateSuggestionForUserPreferences(@PathVariable long userId) {
         return suggestionService.generateSuggestionForUserPreferences(userId);
     }
 
     @PostMapping("/suggestions/generate/{userId}/orderHistory")
-    SuggestionDTO generateSuggestionFromOrderHistory(@PathVariable UUID userId) {
+    SuggestionDTO generateSuggestionFromOrderHistory(@PathVariable long userId) {
         return suggestionService.generateSuggestionFromOrderHistory(userId);
     }
 

@@ -57,6 +57,7 @@
             <artifactId>langchain4j-google-ai-gemini-spring-boot-starter</artifactId>
             <version>${langchain4j.beta-version}</version>
         </dependency>
+
     </dependencies>
 
     <build>

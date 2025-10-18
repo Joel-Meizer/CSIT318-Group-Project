@@ -61,8 +61,8 @@ public class SuggestionService {
         );
     }
 
-    public SuggestionDTO generateSuggestionForUserPreferences(UUID userId) {
-        UserPreferenceModel userPreferenceModel = httpWebClient.GetRESTAsync(String.format("http://localhost:8080/user/%s/userPreferences", userId), UserPreferenceModel.class);
+    public SuggestionDTO generateSuggestionForUserPreferences(long userId) {
+        UserPreferenceModel userPreferenceModel = httpWebClient.GetRESTAsync(String.format("http://localhost:8080/api/users/%s/userPreferences", userId), UserPreferenceModel.class);
 
         StringBuilder userMessageBuilder = new StringBuilder();
         userMessageBuilder.append("Here are the user's learning preferences. Please generate a List of EducationalResources based on them.\n\n");
@@ -76,6 +76,24 @@ public class SuggestionService {
         if (userPreferenceModel.knowledgeLevel != null) {
             userMessageBuilder.append("I don't want any EducationalResources that are a higher knowledge level than ").append(userPreferenceModel.knowledgeLevel.name()).append(".\n");
         }
+
+        if (userPreferenceModel.knowledgeType != null) {
+            userMessageBuilder.append("I only want resources with the type: ").append(userPreferenceModel.knowledgeType.name()).append(".\n");
+        }
+
+        userMessageBuilder.append("You cannot create any new knowledgeTypes or knowledgeLevels, below are the valid types and levels that can be returns.\n");
+        List<KnowledgeLevel> knowledgeLevels = educationalResourceRepository.findDistinctKnowledgeLevels();
+        List<KnowledgeType> knowledgeTypes = educationalResourceRepository.findDistinctKnowledgeTypes();
+        String knowledgeTypesCsv = knowledgeTypes.stream()
+                .map(KnowledgeType::name)
+                .collect(Collectors.joining(", "));
+
+        String knowledgeLevelsCsv = knowledgeLevels.stream()
+                .map(KnowledgeLevel::name)
+                .collect(Collectors.joining(", "));
+
+        userMessageBuilder.append("KnowledgeTypes: ").append(knowledgeTypesCsv).append("\n");
+        userMessageBuilder.append("KnowledgeLevels: ").append(knowledgeLevelsCsv).append("\n");
 
         String userMessage = userMessageBuilder.toString();
 
@@ -91,8 +109,8 @@ public class SuggestionService {
         return SaveSuggestionCreateDTO("Collected suggested resources based on user preferences", suggestedResources.resources);
     }
 
-    public SuggestionDTO generateSuggestionFromOrderHistory(UUID userId) {
-        String response = httpWebClient.GetRESTAsync(String.format("http://localhost:8080/user/%s/orderHistory", userId));
+    public SuggestionDTO generateSuggestionFromOrderHistory(long userId) {
+        String response = httpWebClient.GetRESTAsync(String.format("http://localhost:8083/api/orders/history/%s", userId));
         List<EducationalResource> previouslyOrdered;
 
         ObjectMapper mapper = new ObjectMapper();

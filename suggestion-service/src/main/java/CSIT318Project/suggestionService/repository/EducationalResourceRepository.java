@@ -15,5 +15,8 @@ public interface EducationalResourceRepository extends JpaRepository<Educational
 
     @Query("SELECT DISTINCT e.knowledgeLevel FROM EducationalResource e")
     List<KnowledgeLevel> findDistinctKnowledgeLevels();
+
+    @Query("SELECT DISTINCT e.knowledgeType FROM EducationalResource e")
+    List<KnowledgeType> findDistinctKnowledgeTypes();
 }
 
