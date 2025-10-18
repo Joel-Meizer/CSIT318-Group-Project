@@ -1,7 +1,11 @@
-package CSIT318Project.suggestionService.model;
+package com.library.accounts.model;
 
-import CSIT318Project.suggestionService.Enums.*;
+import com.library.accounts.enums.*;
 
+import java.util.Date;
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class UserPreferenceModel {
     public String userPreferenceString = null;
     public String genre = null;
