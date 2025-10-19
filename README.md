@@ -25,7 +25,7 @@ docker-compose up -d
 ```
 
 This should then create 2 containers within your docker container registry, ensure both containers have started, then you can proceed with the tests below.
-![Docker Container](docker desktop.png "Docker Container")
+![Docker Container](docker-desktop.png "Docker Container")
 
 ## Start up all Microservices in the following order:
 > **Note**
