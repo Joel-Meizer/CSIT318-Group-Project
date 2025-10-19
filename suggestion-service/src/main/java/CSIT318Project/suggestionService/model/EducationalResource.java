@@ -1,6 +1,7 @@
 package CSIT318Project.suggestionService.model;
 import CSIT318Project.suggestionService.Enums.KnowledgeLevel;
 import CSIT318Project.suggestionService.Enums.KnowledgeType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import jakarta.persistence.*;
 import java.util.Date;
@@ -14,39 +15,22 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 public class EducationalResource {
 
     @Id
-    private UUID resourceId;
-
-    @Column
+    private String resourceId;
     private String title;
-
-    @Column
     private String description;
-
-    @ElementCollection
     private String[] authors;
-
-    @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date publicationDate;
-
-    @Column
     private String genre;
-
-    @Column
     private String url;
-
-    @Column
     private KnowledgeLevel knowledgeLevel;
-
-    @Column
     private KnowledgeType knowledgeType;
 
     public EducationalResource() {}
 
-    public void EducationalResource() {}
+    public void setResourceId(String resourceId) { this.resourceId = resourceId; }
 
-    public void setResourceId(UUID resourceId) { this.resourceId = resourceId; }
-
-    public String getResourceId() { return resourceId.toString(); }
+    public String getResourceId() { return resourceId; }
 
     public String getTitle() {
         return title;

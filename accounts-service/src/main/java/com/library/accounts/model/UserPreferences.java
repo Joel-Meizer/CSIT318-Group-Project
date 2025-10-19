@@ -11,6 +11,8 @@ import java.util.List;
 @Embeddable
 public class UserPreferences {
 
+    private String userPreferenceString;
+
     @ElementCollection
     private List<String> preferredGenres;
 
@@ -22,7 +24,8 @@ public class UserPreferences {
 
     public UserPreferences() {}
 
-    public UserPreferences(List<String> preferredGenres, KnowledgeLevel knowledgeLevel, KnowledgeType knowledgeType) {
+    public UserPreferences(String userPreferenceString, List<String> preferredGenres, KnowledgeLevel knowledgeLevel, KnowledgeType knowledgeType) {
+        this.userPreferenceString = userPreferenceString;
         this.preferredGenres = preferredGenres;
         this.knowledgeLevel = knowledgeLevel;
         this.knowledgeType = knowledgeType;
@@ -36,5 +39,8 @@ public class UserPreferences {
 
     public KnowledgeType getKnowledgeType() { return knowledgeType; }
     public void setKnowledgeType(KnowledgeType knowledgeType) { this.knowledgeType = knowledgeType; }
+
+    public String getPreferenceString() { return userPreferenceString; }
+    public void setPreferenceString(String userPreferenceString) { this.userPreferenceString = userPreferenceString; }
 }
 

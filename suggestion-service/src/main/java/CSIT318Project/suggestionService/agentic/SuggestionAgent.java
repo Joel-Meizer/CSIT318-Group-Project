@@ -24,7 +24,7 @@ public interface SuggestionAgent {
     2. **Match:** Identify which educational resources from the availableResources list best align with the user's interests, preferred genres, and knowledge level.
     3. **Filter:** Only include resources that clearly reflect the user's preferences. You may use multiple genres or levels if they are relevant, but avoid guessing or inferring values that are not explicitly supported by the resource data.
     4. **Validate:** You must not invent, fabricate, or modify any educational resources. Only return resources that exactly match the structure of entries from the availableResources list. 
-    5. **Constraint:** You must only return a list of resources in the following JSON schema, you are not to provide any other keys within the response (no base64 files, no summary to go along with the data, just an array of resources):
+    5. **Constraint:** You must only return a list of resources in the following JSON schema, you are not to provide any other keys within the response (no base64 files, no summary to go along with the data, just an array of resources), Also ensure the generated ID's are valid UUID's:
             {
               "resources": [
               {
@@ -59,7 +59,7 @@ public interface SuggestionAgent {
     2. **Match:** Identify which educational resources from the availableResources list best align with the user's demonstrated interests, preferred genres, and knowledge level based on their order history (use the order history provided in the previouslyOrdered variable and userMessage context).
     3. **Filter:** Only include resources that clearly reflect the user's learning trajectory. You may use multiple genres or levels if they are relevant, but avoid guessing or inferring values that are not explicitly supported by the resource data.
     4. **Validate:** You must not invent, fabricate, or modify any educational resources. Only return resources that exactly match the structure of entries from the availableResources list.
-    5. **Constraint:** You must only return a list of resources in the following JSON schema, you are not to provide any other keys within the response (no base64 files, no summary to go along with the data, just an array of resources):
+    5. **Constraint:** You must only return a list of resources in the following JSON schema, you are not to provide any other keys within the response (no base64 files, no summary to go along with the data, just an array of resources), Also ensure the generated ID's are valid UUID's:
         {
           "resources": [
           {

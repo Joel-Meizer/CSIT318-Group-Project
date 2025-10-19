@@ -62,15 +62,15 @@ public class SuggestionService {
     }
 
     public SuggestionDTO generateSuggestionForUserPreferences(long userId) {
-        UserPreferenceModel userPreferenceModel = httpWebClient.GetRESTAsync(String.format("http://localhost:8080/api/users/%s/userPreferences", userId), UserPreferenceModel.class);
+        UserPreferenceModel userPreferenceModel = httpWebClient.GetRESTAsync(String.format("http://localhost:8080/api/users/%s/preferences", userId), UserPreferenceModel.class);
 
         StringBuilder userMessageBuilder = new StringBuilder();
         userMessageBuilder.append("Here are the user's learning preferences. Please generate a List of EducationalResources based on them.\n\n");
         userMessageBuilder.append("The response SuggestiongenerateModel must match with at least 1 EducationalResource.\n\n");
         userMessageBuilder.append(userPreferenceModel.userPreferenceString).append("\n\n");
 
-        if (userPreferenceModel.genre != null) {
-            userMessageBuilder.append("My favourite genres are ").append(userPreferenceModel.genre).append(".\n");
+        if (userPreferenceModel.genres != null) {
+            userMessageBuilder.append("My favourite genres are ").append(String.join(", ", userPreferenceModel.genres)).append(".\n");
         }
 
         if (userPreferenceModel.knowledgeLevel != null) {
@@ -102,10 +102,6 @@ public class SuggestionService {
                 educationalResourceRepository.findAll()
         ).content();
 
-        for(EducationalResource resource : suggestedResources.resources) {
-            System.out.println(resource.toString());
-        }
-
         return SaveSuggestionCreateDTO("Collected suggested resources based on user preferences", suggestedResources.resources);
     }
 
@@ -131,6 +127,20 @@ public class SuggestionService {
         for(EducationalResource resource : previouslyOrdered) {
             userMessageBuilder.append(resource.toString());
         }
+
+        List<KnowledgeLevel> knowledgeLevels = educationalResourceRepository.findDistinctKnowledgeLevels();
+        List<KnowledgeType> knowledgeTypes = educationalResourceRepository.findDistinctKnowledgeTypes();
+        String knowledgeTypesCsv = knowledgeTypes.stream()
+                .map(KnowledgeType::name)
+                .collect(Collectors.joining(", "));
+
+        String knowledgeLevelsCsv = knowledgeLevels.stream()
+                .map(KnowledgeLevel::name)
+                .collect(Collectors.joining(", "));
+
+        userMessageBuilder.append("Also ensure that all knowledgeTypes and knowledgeLevels generates are valid Enums - they need to be included in the below CSV of valid properties:");
+        userMessageBuilder.append("KnowledgeTypes: ").append(knowledgeTypesCsv).append("\n");
+        userMessageBuilder.append("KnowledgeLevels: ").append(knowledgeLevelsCsv).append("\n");
 
         String userMessage = userMessageBuilder.toString();
 
