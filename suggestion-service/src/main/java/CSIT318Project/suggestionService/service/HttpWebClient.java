@@ -2,7 +2,6 @@ package CSIT318Project.suggestionService.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 @Service
 public class HttpWebClient {
@@ -12,6 +11,7 @@ public class HttpWebClient {
         this.webClient = webClientBuilder.build();
     }
 
+    // found how to create a webClient object https://www.geeksforgeeks.org/springboot/spring-boot-webclient-with-example/
     public String GetRESTAsync(String fullUrl) {
         return webClient.get()
                 .uri(fullUrl)

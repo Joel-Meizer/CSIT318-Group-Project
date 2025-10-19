@@ -67,7 +67,10 @@ public class SuggestionService {
         StringBuilder userMessageBuilder = new StringBuilder();
         userMessageBuilder.append("Here are the user's learning preferences. Please generate a List of EducationalResources based on them.\n\n");
         userMessageBuilder.append("The response SuggestiongenerateModel must match with at least 1 EducationalResource.\n\n");
-        userMessageBuilder.append(userPreferenceModel.userPreferenceString).append("\n\n");
+
+        if(userPreferenceModel.userPreferenceString != null) {
+            userMessageBuilder.append(userPreferenceModel.userPreferenceString).append("\n\n");
+        }
 
         if (userPreferenceModel.genres != null) {
             userMessageBuilder.append("My favourite genres are ").append(String.join(", ", userPreferenceModel.genres)).append(".\n");
@@ -81,24 +84,10 @@ public class SuggestionService {
             userMessageBuilder.append("I only want resources with the type: ").append(userPreferenceModel.knowledgeType.name()).append(".\n");
         }
 
-        userMessageBuilder.append("You cannot create any new knowledgeTypes or knowledgeLevels, below are the valid types and levels that can be returns.\n");
-        List<KnowledgeLevel> knowledgeLevels = educationalResourceRepository.findDistinctKnowledgeLevels();
-        List<KnowledgeType> knowledgeTypes = educationalResourceRepository.findDistinctKnowledgeTypes();
-        String knowledgeTypesCsv = knowledgeTypes.stream()
-                .map(KnowledgeType::name)
-                .collect(Collectors.joining(", "));
-
-        String knowledgeLevelsCsv = knowledgeLevels.stream()
-                .map(KnowledgeLevel::name)
-                .collect(Collectors.joining(", "));
-
-        userMessageBuilder.append("KnowledgeTypes: ").append(knowledgeTypesCsv).append("\n");
-        userMessageBuilder.append("KnowledgeLevels: ").append(knowledgeLevelsCsv).append("\n");
-
-        String userMessage = userMessageBuilder.toString();
+        AppendKnowledgeTypesLevelsToSB(userMessageBuilder);
 
         SuggestedResourcesResponseDTO suggestedResources = suggestionAgent.generateFromPreferences(
-                userMessage,
+                userMessageBuilder.toString(),
                 educationalResourceRepository.findAll()
         ).content();
 
@@ -107,14 +96,12 @@ public class SuggestionService {
 
     public SuggestionDTO generateSuggestionFromOrderHistory(long userId) {
         String response = httpWebClient.GetRESTAsync(String.format("http://localhost:8083/api/orders/history/%s", userId));
+
         List<EducationalResource> previouslyOrdered;
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            previouslyOrdered = mapper.readValue(
-                response,
-                new TypeReference<List<EducationalResource>>() {}
-            );
+            previouslyOrdered = mapper.readValue(response, new TypeReference<List<EducationalResource>>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Failed to parse JSON response", e);
         }
@@ -122,30 +109,15 @@ public class SuggestionService {
         StringBuilder userMessageBuilder = new StringBuilder();
         userMessageBuilder.append("Here are the user's previously ordered items. Please generate a List of EducationalResources based on them.\n\n");
         userMessageBuilder.append("The response SuggestiongenerateModel must match with at least 1 EducationalResource.\n\n");
-
         userMessageBuilder.append("Below are my previously ordered items:\n\n");
         for(EducationalResource resource : previouslyOrdered) {
             userMessageBuilder.append(resource.toString());
         }
 
-        List<KnowledgeLevel> knowledgeLevels = educationalResourceRepository.findDistinctKnowledgeLevels();
-        List<KnowledgeType> knowledgeTypes = educationalResourceRepository.findDistinctKnowledgeTypes();
-        String knowledgeTypesCsv = knowledgeTypes.stream()
-                .map(KnowledgeType::name)
-                .collect(Collectors.joining(", "));
-
-        String knowledgeLevelsCsv = knowledgeLevels.stream()
-                .map(KnowledgeLevel::name)
-                .collect(Collectors.joining(", "));
-
-        userMessageBuilder.append("Also ensure that all knowledgeTypes and knowledgeLevels generates are valid Enums - they need to be included in the below CSV of valid properties:");
-        userMessageBuilder.append("KnowledgeTypes: ").append(knowledgeTypesCsv).append("\n");
-        userMessageBuilder.append("KnowledgeLevels: ").append(knowledgeLevelsCsv).append("\n");
-
-        String userMessage = userMessageBuilder.toString();
+        AppendKnowledgeTypesLevelsToSB(userMessageBuilder);
 
         SuggestedResourcesResponseDTO suggestedResources = suggestionAgent.generateFromOrderHistory(
-                userMessage,
+                userMessageBuilder.toString(),
                 previouslyOrdered,
                 educationalResourceRepository.findAll()
         ).content();
@@ -201,5 +173,13 @@ public class SuggestionService {
 
             return cb.and(predicates.toArray(new Predicate[0]));
         };
+    }
+
+    private void AppendKnowledgeTypesLevelsToSB (StringBuilder sb) {
+        sb.append("You cannot create any new knowledgeTypes or knowledgeLevels, below are the valid types and levels that can be returns.\n");
+        List<KnowledgeLevel> knowledgeLevels = educationalResourceRepository.findDistinctKnowledgeLevels();
+        List<KnowledgeType> knowledgeTypes = educationalResourceRepository.findDistinctKnowledgeTypes();
+        sb.append("KnowledgeTypes: ").append(String.join(", ", knowledgeTypes.stream().map(Enum::name).toList())).append("\n");
+        sb.append("KnowledgeLevels: ").append(String.join(", ", knowledgeLevels.stream().map(Enum::name).toList())).append("\n");
     }
 }
