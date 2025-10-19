@@ -28,8 +28,8 @@ This should then create 2 containers within your docker container registry, ensu
 ![Docker Container](docker-desktop.png "Docker Container")
 
 ## Start up all Microservices in the following order:
-> **Note**
-If you are unable to click "Start Application" for each one of these services, you may need to run ```mvn spring-boot:run``` within the directory of each service in a separate terminal
+> [!IMPORTANT]  
+> If you are unable to click "Start Application" for each one of these services, you may need to run ```mvn spring-boot:run``` within the directory of each service in a separate terminal
 1. Resource Service
 2. Accounts Service
 3. Order Service
