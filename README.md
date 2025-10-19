@@ -5,11 +5,11 @@ service that provides users an easy way to access resources for educational purp
 that may be suitable, while also assisting in pinpointing key information within these resources collected.
 
 Altogether we have the following 5 microservices
-- ### Account Service
-- ### Order Service
-- ### Guides Service (Agentic Component)
-- ### Resource Service
-- ### Suggestion Service (Agentic Component)
+- **Account Service**
+- **Order Service**
+- **Guides Service (Agentic Component)**
+- **Resource Service**
+- **Suggestion Service (Agentic Component)**
 
 Below you should find outlined test cases alongside code to assist in hitting each use case of our system.
 # Introduction to our services + test code
