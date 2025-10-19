@@ -25,24 +25,41 @@ C:\kafka\bin\windows\zookeeper-server-start.bat C:\kafka\config\zookeeper.proper
 ```
 C:\kafka\bin\windows\kafka-server-start.bat C:\kafka\config\server.properties
 ```
-## Account Service
-1. Creating an account
+# Account Service
+1. Viewing all user accounts
 ```
-curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d '{"name": "Alice", "age": 30}'
-```
-
-```
-curl -X GET http://localhost:3000/api/example 
+curl -X GET http://localhost:8080/api/users 
 ```
 
-## Resource Service
+2. Creating an account
+```
+curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d '{"email": "test.user@gmail.com", "firstName": "Test", "lastName": "User"}'
+```
 
+3. Viewing a specific user account (provide a ```{userId}``` from a result of step 1)
 ```
-curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d '{"name": "Alice", "age": 30}'
+curl -X GET http://localhost:8080/api/users/{userId} 
 ```
 
+4. Modifying a specific user account (provide a ```{userId}``` from a result of step 1)
 ```
-curl -X GET http://localhost:3000/api/example
+curl -X PUT http://localhost:8080/api/users/{userId} -H "Content-Type: application/json" -d '{"lastName": "User-Modified"}'
+```
+
+6. Cancelling a membership
+```
+curl -X POST http://localhost:8080/api/users/{userId}/cancel-membership
+```
+# Resource Service
+
+1. Collect all resources
+```
+curl -X GET http://localhost:8081/resources
+```
+
+2. Collect a specific resource (provide a ```{resourceId}``` from a result of step 1)
+```
+curl -X GET http://localhost:8081/resources/{resourceId}
 ```
 
 ## Order Service
