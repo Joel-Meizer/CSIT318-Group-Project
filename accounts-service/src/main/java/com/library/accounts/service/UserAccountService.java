@@ -2,6 +2,8 @@ package com.library.accounts.service;
 
 import com.library.accounts.model.*;
 import com.library.accounts.repository.*;
+import com.library.accounts.dto.UserPreferenceModel;
+import com.library.accounts.model.UserPreferences;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,11 +69,19 @@ public class UserAccountService {
     }
 
     @Transactional
-    public UserAccount updateUserPreferences(Long id, UserPreferenceModel userPreferences) {
+    public UserAccount updateUserPreferences(Long id, UserPreferenceModel userPreferenceModel) {
         UserAccount user = userRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
-        user.setUserPreferences(userPreferences);
+
+        UserPreferences preferences = new UserPreferences(
+                userPreferenceModel.getGenres(),
+                userPreferenceModel.getKnowledgeLevel(),
+                userPreferenceModel.getKnowledgeType()
+        );
+
+        user.setUserPreferences(preferences);
         return userRepo.save(user);
     }
+
 }
 

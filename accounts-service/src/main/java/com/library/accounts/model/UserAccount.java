@@ -2,6 +2,12 @@ package com.library.accounts.model;
 
 import jakarta.persistence.*;
 import java.time.Instant;
+import java.util.List;
+
+import com.library.accounts.model.UserPreferences;
+import com.library.accounts.enums.KnowledgeLevel;
+import com.library.accounts.enums.KnowledgeType;
+
 
 @Entity
 @Table(name = "users")
@@ -17,14 +23,8 @@ public class UserAccount {
     private String firstName;
     private String lastName;
 
-    @ElementCollection
-    private List<String> preferredGenres;
-
-    @Enumerated(EnumType.STRING)
-    private KnowledgeLevel knowledgeLevel;
-
-    @Enumerated(EnumType.STRING)
-    private KnowledgeType knowledgeType;
+    @Embedded
+    private UserPreferences userPreferences;
 
     private String researchGoal;
 
@@ -43,8 +43,6 @@ public class UserAccount {
     @JoinColumn(name = "membership_id")
     private Membership membership;
 
-    @Embedded
-    private UserPreferenceModel userPreferences;
 
     public UserAccount() {}
 
@@ -70,7 +68,8 @@ public class UserAccount {
     public Membership getMembership() { return membership; }
     public void setMembership(Membership membership) { this.membership = membership; }
 
-    public UserPreferenceModel getUserPreferences() { return userPreferences; }
-    public void setUserPreferences(UserPreferenceModel userPreferences) { this.userPreferences = userPreferences; }
+    public UserPreferences getUserPreferences() { return userPreferences; }
+    public void setUserPreferences(UserPreferences userPreferences) { this.userPreferences = userPreferences; }
+
 }
 

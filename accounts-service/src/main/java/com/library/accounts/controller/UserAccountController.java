@@ -2,12 +2,18 @@ package com.library.accounts.controller;
 
 import com.library.accounts.model.*;
 import com.library.accounts.dto.*;
+import com.library.accounts.repository.*;
+import com.library.accounts.dto.UserPreferenceModel;
+import com.library.accounts.model.UserPreferences;
 import com.library.accounts.service.UserAccountService;
+import com.library.accounts.service.UserEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -24,13 +30,6 @@ public class UserAccountController {
         this.eventPublisher = publisher;
     }
 
-    @PostMapping
-    public ResponseEntity<UserAccount> createUser(@RequestBody UserAccount user) {
-        UserAccount saved = userAccountRepository.save(user);
-        eventPublisher.publishUserCreated(saved.getId(), saved.getEmail(),
-                saved.getFirstName(), saved.getLastName());
-        return ResponseEntity.ok(saved);
-    }
 
     @PostMapping("/{id}/cancel-membership")
     public ResponseEntity<String> cancelMembership(@PathVariable Long id) {
@@ -80,36 +79,31 @@ public class UserAccountController {
         }
     }
 
-    @GetMapping("/api/users/{id}/membership")
+    @GetMapping("/{id}/membership")
     public ResponseEntity<Boolean> checkMembership(@PathVariable Long id) {
         return service.findById(id)
                 .map(user -> ResponseEntity.ok(user.getMembership().isActive()))
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/{id}/cancel-membership")
-    public ResponseEntity<Void> cancelMembership(@PathVariable Long id) {
-        try {
-            service.cancelMembership(id);
-            return ResponseEntity.noContent().build();
-        } catch (IllegalArgumentException ex) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @GetMapping("/{id}/preferences")
     public ResponseEntity<UserPreferenceModel> getUserPreferences(@PathVariable Long id) {
         return userAccountRepository.findById(id)
-                .map(user -> {
-                    UserPreferenceModel pref = new UserPreferenceModel(
-                            user.getPreferredGenres(),
-                            user.getKnowledgeLevel(),
-                            user.getKnowledgeType()
+                .<ResponseEntity<UserPreferenceModel>>map(user -> {
+                    if (user.getUserPreferences() == null) {
+                        return ResponseEntity.notFound().build();
+                    }
+                    UserPreferences prefs = user.getUserPreferences();
+                    UserPreferenceModel dto = new UserPreferenceModel(
+                            prefs.getPreferredGenres(),
+                            prefs.getKnowledgeLevel(),
+                            prefs.getKnowledgeType()
                     );
-                    return ResponseEntity.ok(pref);
+                    return ResponseEntity.ok(dto);
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
 
     @GetMapping("/{id}/research-goal")
     public ResponseEntity<ResearchGoalDTO> getUserResearchGoal(@PathVariable Long id) {
@@ -141,13 +135,6 @@ public class UserAccountController {
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @GetMapping("/{id}/userPreferences")
-    public ResponseEntity<UserPreferenceModel> getUserPreferences(@PathVariable Long id) {
-        return service.findById(id)
-                .map(user -> ResponseEntity.ok(user.getUserPreferences()))
-                .orElse(ResponseEntity.notFound().build());
     }
 }
 
