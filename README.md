@@ -16,15 +16,25 @@ Below you should find outlined test cases alongside code to assist in hitting ea
 ## Prerequisites:
 - `Google Gemini API Key` (can be created at https://aistudio.google.com/api-keys):
   - Create a new environment variable for both the Guide-Service and Suggestion-Service, it must be formatted `GEMINI_API_KEY={api_key}`
-- `Apache Kafka` must be installed on your system:
-  - Download a binary package of Apache Kafka (e.g., kafka_2.13-3.7.0.tgz) from https://kafka.apache.org/downloads and unzip it to a directory, e.g., C:\kafka—Windows does not like a complex path name (!).
-  - Use the following two commands in the Windows CMD (one in each window) to start Kafka:
+- `Youtube API Key` (can be created at https://aistudio.google.com/api-keys):
+  - Create a new environment variable for both the Guide-Service, it must be formatted `YOUTUBE_API_KEY={api_key}`
+- `Docker Desktop` must be installed on your system
+  - Once you have opened docker desktop, run the following command at the root directory (./CSIT-381-Group-Project)
 ```
-C:\kafka\bin\windows\zookeeper-server-start.bat C:\kafka\config\zookeeper.properties
+docker-compose up -d
 ```
-```
-C:\kafka\bin\windows\kafka-server-start.bat C:\kafka\config\server.properties
-```
+
+This should then create 2 containers within your docker container registry, ensure both containers have started, then you can proceed with the tests below.
+![Docker Container](docker desktop.png "Docker Container")
+
+## Start up all Microservices in the following order:
+> **Note**
+If you are unable to click "Start Application" for each one of these services, you may need to run ```mvn spring-boot:run``` within the directory of each service in a separate terminal
+1. Resource Service
+2. Accounts Service
+3. Order Service
+4. Guides Service
+5. Suggestion Service
 # Account Service
 1. Viewing all user accounts
 ```
@@ -69,13 +79,25 @@ curl -X POST http://localhost:3000/api/example -H "Content-Type: application/jso
 ```
 
 # Guide Service
-
+1. Collect all guides
 ```
-curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d '{"name": "Alice", "age": 30}'
+curl -X GET http://localhost:8082/guides
 ```
-
+2. Collect a specific guide (provide a ```{guideId}``` from a result of step 1)
 ```
-curl -X GET http://localhost:3000/api/example
+curl -X GET http://localhost:8082/guide/{guideId}
+```
+3. Collect a guide by resourceID and researchGoal
+```
+curl -X GET http://localhost:8082/guide -F "resourceId={resourceId}" -F "researchGoal={researchGoal}"
+```
+4. Create or update guide
+```
+curl -X POST http://localhost:8082/guide -H "Content-Type: application/json" -d '{"resourceId": "{resourceId}", "researchGoal": "I want to learn how to create better abstracts", "Summary": "A summary of the guide", "relatedSections": [], "externalVideos": []}'
+```
+5. Generate a guide for an article (Agentic Component) (provide a ```{filePath}``` of your own, otherwise copy the full path for mockpaper.md from guides-service/mockpaper.md)
+```
+curl -X POST "http://localhost:8082/guideAgent" -H "Content-Type: multipart/form-data" -F "researchGoal=Understanding nutrition for athletes" -F "file=@{filePath}"
 ```
 
 # Suggestion Service
