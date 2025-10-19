@@ -1,4 +1,4 @@
-package CSIT318Project.guideService.service.dto;
+package CSIT318Project.guideService.model.dto;
 
 import java.util.List;
 
