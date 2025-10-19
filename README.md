@@ -62,13 +62,13 @@ curl -X GET http://localhost:8081/resources
 curl -X GET http://localhost:8081/resources/{resourceId}
 ```
 
-## Order Service
+# Order Service
 
 ```
 curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d '{"name": "Alice", "age": 30}'
 ```
 
-## Guide Service
+# Guide Service
 
 ```
 curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d '{"name": "Alice", "age": 30}'
@@ -78,7 +78,7 @@ curl -X POST http://localhost:3000/api/example -H "Content-Type: application/jso
 curl -X GET http://localhost:3000/api/example
 ```
 
-## Suggestion Service
+# Suggestion Service
 1. Get All existing suggestions within the suggestionRepository
 ```
 curl -X GET http://localhost:8084/suggestions
