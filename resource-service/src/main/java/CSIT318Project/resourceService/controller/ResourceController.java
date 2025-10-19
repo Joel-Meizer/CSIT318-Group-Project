@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,5 +31,10 @@ public class ResourceController {
     @GetMapping("/resources/{resourceId}")
     ResourceDTO findBook(@PathVariable UUID resourceId) {
         return resourceService.getResource(resourceId);
+    }
+
+    @PostMapping("/resources/upload")
+    public ResourceDTO uploadResource(@RequestParam("file") MultipartFile file) throws IOException {
+        return resourceService.createResourceFromFile(file);
     }
 }

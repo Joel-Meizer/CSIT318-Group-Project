@@ -5,19 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dcc3fcd9-51a4-41a7-854e-d2b23e466f75" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/enums/KnowledgeLevel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/enums/KnowledgeType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/model/UserPreferenceModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/AccountsServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/AccountsServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/controller/UserAccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/controller/UserAccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/model/UserAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/model/UserAccount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/service/UserAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/service/UserAccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/suggestion-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/suggestion-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/suggestion-service/src/main/java/CSIT318Project/suggestionService/agentic/SuggestionAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/suggestion-service/src/main/java/CSIT318Project/suggestionService/agentic/SuggestionAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/suggestion-service/src/main/java/CSIT318Project/suggestionService/controller/SuggestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/suggestion-service/src/main/java/CSIT318Project/suggestionService/controller/SuggestionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/suggestion-service/src/main/java/CSIT318Project/suggestionService/repository/EducationalResourceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/suggestion-service/src/main/java/CSIT318Project/suggestionService/repository/EducationalResourceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/suggestion-service/src/main/java/CSIT318Project/suggestionService/service/SuggestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/suggestion-service/src/main/java/CSIT318Project/suggestionService/service/SuggestionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/enums/KnowledgeLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/enums/KnowledgeLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/enums/KnowledgeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/enums/KnowledgeType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides-service/mockpaper.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/controller/GuideController.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/controller/GuideController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/model/Guide.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/model/Guide.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/model/RelatedSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/model/RelatedSection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/service/GuideAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/service/GuideAgent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/service/GuideService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/service/GuideService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/service/YoutubeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/service/YoutubeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/Enums/KnowledgeLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/Enums/KnowledgeLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/Enums/KnowledgeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/Enums/KnowledgeType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/ResourceSpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/ResourceSpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/controller/ResourceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/controller/ResourceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/model/EducationalResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/model/EducationalResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/service/ResourceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/service/ResourceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/service/dto/ResourceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/service/dto/ResourceDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,17 +51,21 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Joel-Meizer"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Joel-Meizer&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Joel-Meizer/CSIT318-Group-Project.git",
-    "accountId": "dc13387e-f853-4c63-8132-e6c9211bdd3f"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Joel-Meizer/CSIT318-Group-Project.git&quot;,
+    &quot;accountId&quot;: &quot;dc13387e-f853-4c63-8132-e6c9211bdd3f&quot;
   }
+}</component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
 }]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -68,14 +81,39 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.OrderServiceApplication.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true"
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.GuideSpringApplication.executor": "Run",
+    "Spring Boot.ResourceSpringApplication.executor": "Run",
+    "git-widget-placeholder": "guide-service-integration",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/mac/Documents/uni/java/CSIT318-Group-Project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.configurations.included.in.services": "true",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.GuideSpringApplication">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -122,12 +160,49 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GuideSpringApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="guides-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="CSIT318Project.guideService.GuideSpringApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="order-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="CSIT318Project.orderService.OrderServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ResourceSpringApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="resource-service (1)" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="CSIT318Project.resourceService.ResourceSpringApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SuggestionSpringApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="suggestion-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="CSIT318Project.suggestionService.SuggestionSpringApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.OrderServiceApplication" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="dcc3fcd9-51a4-41a7-854e-d2b23e466f75" name="Changes" comment="" />
@@ -135,6 +210,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1760368755112</updated>
+      <workItem from="1760874630874" duration="2634000" />
     </task>
     <task id="LOCAL-00001" summary=".">
       <option name="closed" value="true" />
@@ -162,6 +238,9 @@
     </task>
     <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

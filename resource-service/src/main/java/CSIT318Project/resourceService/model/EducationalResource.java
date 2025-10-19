@@ -37,8 +37,15 @@ public class EducationalResource {
     @Column
     private KnowledgeType knowledgeType;
 
+    @Column(columnDefinition = "TEXT")
+    private String content;
+
     public void EducationalResource() {
     }
+
+    public String getContent() { return content; }
+
+    public void setContent(String content) { this.content = content; }
 
     public String getResourceId() { return resourceId.toString(); }
 

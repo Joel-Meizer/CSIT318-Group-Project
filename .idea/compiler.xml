@@ -10,19 +10,32 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="suggestion-service" />
+        <module name="resource-service" />
         <module name="order-service" />
         <module name="account-service" />
-        <module name="resource-service" />
+        <module name="events" />
         <module name="guides-service" />
       </profile>
+      <profile name="Annotation profile for CSIT318Project" enabled="true">
+        <sourceOutputDir name="../resource-service/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../resource-service/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="resource-service (1)" />
+      </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="account-service" target="21" />
+      <module name="book-service" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
-      <module name="resource-service" options="-parameters" />
+      <module name="events" options="-parameters" />
       <module name="guides-service" options="-parameters" />
       <module name="order-service" options="-parameters" />
+      <module name="resource-service" options="-parameters" />
+      <module name="resource-service (1)" options="-parameters" />
       <module name="suggestion-service" options="-parameters" />
     </option>
   </component>

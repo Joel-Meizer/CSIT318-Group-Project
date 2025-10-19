@@ -23,7 +23,7 @@ public class Guide {
 	private UUID resourceId;
 	@Column
 	private String researchGoal;
-	@Column
+	@Column(columnDefinition = "TEXT")
 	private String summary;
 
 	@ElementCollection

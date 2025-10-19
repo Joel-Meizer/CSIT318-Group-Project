@@ -18,6 +18,7 @@ public interface GuideAgent {
 				4.  **Search Videos:** Formulate multiple queries and use the `searchVideos` tool to find the most relevant external videos that can help the user understand the document better. Make sure they are all directly relevant to the research goal **and** the document content.
 			    5. 	**Suggest Videos:** Pick 3 most relevant external videos from the results, ideally tackling different aspects of the research goal or different levels of understanding and thoroughness of the content. Then recommend them to the user. If you cannot find any relevant videos then return an empty list.
 				6.  **Summarise**: Provide a concise summary of the entire guide.
+				7.  **Output**: Return only the raw JSON object, without any markdown formatting or other text.
 			""")
 	@UserMessage("""
 			    Please create a learning guide object using the following information:

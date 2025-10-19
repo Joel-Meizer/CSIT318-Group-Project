@@ -1,0 +1,9 @@
+CSIT318Project/resourceService/Enums/KnowledgeLevel.class
+CSIT318Project/resourceService/service/dto/ResourceDTO.class
+CSIT318Project/resourceService/Enums/KnowledgeType.class
+CSIT318Project/resourceService/model/SuggestionGenerateModel.class
+CSIT318Project/resourceService/controller/ResourceController.class
+CSIT318Project/resourceService/repository/ResourceRepository.class
+CSIT318Project/resourceService/service/ResourceService.class
+CSIT318Project/resourceService/model/EducationalResource.class
+CSIT318Project/resourceService/ResourceSpringApplication.class

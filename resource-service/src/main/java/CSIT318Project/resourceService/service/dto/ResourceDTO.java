@@ -18,6 +18,7 @@ public class ResourceDTO {
     private String url;
     private KnowledgeLevel knowledgeLevel;
     private KnowledgeType knowledgeType;
+    private String content;
 
     public ResourceDTO() {
     }
@@ -32,6 +33,7 @@ public class ResourceDTO {
         this.url = resource.getUrl();
         this.knowledgeLevel = resource.getKnowledgeLevel();
         this.knowledgeType = resource.getKnowledgeType();
+        this.content = resource.getContent();
     }
 
     public String getResourceId() {
@@ -104,5 +106,13 @@ public class ResourceDTO {
 
     public void setKnowledgeType(KnowledgeType knowledgeType) {
         this.knowledgeType = knowledgeType;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

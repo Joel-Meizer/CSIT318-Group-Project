@@ -65,7 +65,6 @@ public class YoutubeService {
 				videos.add(new ExternalVideo(videoUrl, title, description));
 			}
 		} catch (JsonProcessingException e) {
-			// In a real application, you should handle this exception more gracefully
 			e.printStackTrace();
 		}
 
