@@ -14,6 +14,8 @@ Altogether we have the following 5 microservices
 Below you should find outlined test cases alongside code to assist in hitting each use case of our system.
 # Introduction to our services + test code
 ## Prerequisites:
+> [!CAUTION]
+> Failure to complete these steps will prevent the project from executing
 - `Google Gemini API Key` (can be created at https://aistudio.google.com/api-keys):
   - Create a new environment variable for both the Guide-Service and Suggestion-Service, it must be formatted `GEMINI_API_KEY={api_key}`
 - `Youtube API Key` (can be created at https://aistudio.google.com/api-keys):
