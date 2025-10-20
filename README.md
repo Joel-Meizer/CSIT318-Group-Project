@@ -18,8 +18,8 @@ Below you should find outlined test cases alongside code to assist in hitting ea
 > Failure to complete these steps will prevent the project from executing
 - `Google Gemini API Key` (can be created at https://aistudio.google.com/api-keys):
   - Create a new environment variable for both the Guide-Service and Suggestion-Service, it must be formatted `GEMINI_API_KEY={api_key}`
-- `Youtube API Key` (can be created at https://aistudio.google.com/api-keys):
-  - Create a new environment variable for both the Guide-Service, it must be formatted `YOUTUBE_API_KEY={api_key}`
+- `Youtube API Key` (provided by the lecturer):
+  - Create a new environment variable for the Guide-Service, it must be formatted `YOUTUBE_API_KEY=AIzaSyAGqvBRtBMeY1XbVMVXrD20wmg1mf7tvHA`
 - `Docker Desktop` must be installed on your system
   - Once you have opened docker desktop, run the following command at the root directory (./CSIT-381-Group-Project)
 ```
