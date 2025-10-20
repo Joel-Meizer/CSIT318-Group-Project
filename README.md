@@ -93,13 +93,13 @@ curl -X GET http://localhost:8082/guide/{guideId}
 ```
 curl -X GET http://localhost:8082/guide -F "resourceId={resourceId}" -F "researchGoal={researchGoal}"
 ```
-4. Create or update guide
+4. Create or update guide (when updating a guide, provide the ```{resourceId}```, otherwise leave empty to create)
 ```
 curl -X POST http://localhost:8082/guide -H "Content-Type: application/json" -d '{"resourceId": "{resourceId}", "researchGoal": "I want to learn how to create better abstracts", "Summary": "A summary of the guide", "relatedSections": [], "externalVideos": []}'
 ```
-5. Generate a guide for an article (Agentic Component) (provide a ```{filePath}``` of your own, otherwise copy the full path for mockpaper.md from guides-service/mockpaper.md)
+5. Generate a guide for an article (Agentic Component) (to use provided file, needs to be run at the /guides-service directory)
 ```
-curl -X POST "http://localhost:8082/guideAgent" -H "Content-Type: multipart/form-data" -F "researchGoal=Understanding nutrition for athletes" -F "file=@{filePath}"
+curl -X POST http://localhost:8082/guideAgent -F "file=@mockpaper.md" -F "researchGoal=Analyse the impact of AI"
 ```
 
 # Suggestion Service
