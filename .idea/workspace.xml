@@ -5,28 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dcc3fcd9-51a4-41a7-854e-d2b23e466f75" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/enums/KnowledgeLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/enums/KnowledgeLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/enums/KnowledgeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/accounts-service/src/main/java/com/library/accounts/enums/KnowledgeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides-service/mockpaper.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/controller/GuideController.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/controller/GuideController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/model/Guide.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/model/Guide.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/model/RelatedSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/model/RelatedSection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/GuideSpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/GuideSpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/model/ExternalVideo.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/model/ExternalVideo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/service/GuideAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/service/GuideAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/service/GuideService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/service/GuideService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/service/YoutubeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guides-service/src/main/java/CSIT318Project/guideService/service/YoutubeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource-service/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/mvnw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/Enums/KnowledgeLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/Enums/KnowledgeLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/Enums/KnowledgeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/Enums/KnowledgeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/ResourceSpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/ResourceSpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/controller/ResourceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/controller/ResourceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/model/EducationalResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/model/EducationalResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/service/ResourceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/service/ResourceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/service/dto/ResourceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/java/CSIT318Project/resourceService/service/dto/ResourceDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/target/classes/CSIT318Project/resourceService/controller/ResourceController.class" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/target/classes/CSIT318Project/resourceService/controller/ResourceController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/target/classes/CSIT318Project/resourceService/service/ResourceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/target/classes/CSIT318Project/resourceService/service/ResourceService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/target/resource-service-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/target/resource-service-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource-service/target/resource-service-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/resource-service/target/resource-service-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,10 +57,10 @@
     &quot;accountId&quot;: &quot;dc13387e-f853-4c63-8132-e6c9211bdd3f&quot;
   }
 }</component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -90,6 +84,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.GuideSpringApplication.executor": "Run",
+    "Spring Boot.ResourceSpringApplication (1).executor": "Run",
     "Spring Boot.ResourceSpringApplication.executor": "Run",
     "git-widget-placeholder": "guide-service-integration",
     "kotlin-language-version-configured": "true",
@@ -113,7 +108,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.GuideSpringApplication">
+  <component name="RunManager" selected="Spring Boot.ResourceSpringApplication (1)">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -174,6 +169,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ResourceSpringApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="resource-service (2)" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="CSIT318Project.resourceService.ResourceSpringApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ResourceSpringApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="resource-service (1)" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="CSIT318Project.resourceService.ResourceSpringApplication" />
@@ -211,6 +213,8 @@
       <option name="presentableId" value="Default" />
       <updated>1760368755112</updated>
       <workItem from="1760874630874" duration="2634000" />
+      <workItem from="1760920714585" duration="420000" />
+      <workItem from="1760924667235" duration="1252000" />
     </task>
     <task id="LOCAL-00001" summary=".">
       <option name="closed" value="true" />

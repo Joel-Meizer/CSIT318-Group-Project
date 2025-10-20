@@ -37,4 +37,9 @@ public class ResourceController {
     public ResourceDTO uploadResource(@RequestParam("file") MultipartFile file) throws IOException {
         return resourceService.createResourceFromFile(file);
     }
+
+    @PutMapping("/resources/{resourceId}")
+    public ResourceDTO updateResource(@PathVariable UUID resourceId, @RequestParam("file") MultipartFile file) throws IOException {
+        return resourceService.updateResourceFromFile(resourceId, file);
+    }
 }
