@@ -35,11 +35,4 @@ public class GuideController {
 	public Guide getGuide(@PathVariable UUID id) {
 		return guideService.getGuide(id);
 	}
-
-	// @PostMapping("/guideAgent")
-	// public Guide chat(@RequestParam String researchGoal, @RequestParam
-	// MultipartFile file) throws IOException {
-	// String bookContent = new String(file.getBytes(), StandardCharsets.UTF_8);
-	// return guideAgent.generateGuide(researchGoal, bookContent).content();
-	// }
 }

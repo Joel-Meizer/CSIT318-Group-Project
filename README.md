@@ -18,10 +18,10 @@ Below you should find outlined test cases alongside code to assist in hitting ea
 > Failure to complete these steps will prevent the project from executing
 - `Google Gemini API Key` (can be created at https://aistudio.google.com/api-keys):
   - Create a new environment variable for both the Guide-Service and Suggestion-Service, it must be formatted `GEMINI_API_KEY={api_key}`
-- `Youtube API Key` (provided by lecturer):
+- `Youtube API Key` (a free key is provided):
   - Create a new environment variable for the Guide-Service, it must be formatted `YOUTUBE_API_KEY=AIzaSyAGqvBRtBMeY1XbVMVXrD20wmg1mf7tvHA`
 - `Docker Desktop` must be installed on your system
-  - Once you have opened docker desktop, run the following command at the root directory (./CSIT-381-Group-Project)
+  - Once you have opened docker desktop, run the following command at the root directory (./CSIT381-Group-Project)
 ```
 docker-compose up -d
 ```
@@ -47,13 +47,17 @@ curl -X GET http://localhost:8080/api/users
 ```
 curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d '{"email": "test.user@gmail.com", "firstName": "Test", "lastName": "User"}'
 ```
+3. Adding a research goal to a user account (provide a ```{userId}``` from a result of step 1)
+```
+curl -X PUT http://localhost:8080/api/users/{userId}/research-goal -H "Content-Type: application/json" -d '{"researchGoal": "Gain knowledge in any random topic"}'
+```
 
-3. Viewing a specific user account (provide a ```{userId}``` from a result of step 1)
+4. Viewing a specific user account (provide a ```{userId}``` from a result of step 1)
 ```
 curl -X GET http://localhost:8080/api/users/{userId} 
 ```
 
-4. Modifying a specific user account (provide a ```{userId}``` from a result of step 1)
+5. Modifying a specific user account (provide a ```{userId}``` from a result of step 1)
 ```
 curl -X PUT http://localhost:8080/api/users/{userId} -H "Content-Type: application/json" -d '{"lastName": "User-Modified"}'
 ```
@@ -89,17 +93,9 @@ curl -X GET http://localhost:8082/guides
 ```
 curl -X GET http://localhost:8082/guide/{guideId}
 ```
-3. Collect a guide by resourceID and researchGoal
+3. Generate a guide for an article (Agentic Component), provide ```{resourceId}``` from step 1 of the resource service tests and ```{userId}``` from step 1 of the account service tests, best results if the research goal matches the resource topic
 ```
-curl -X GET http://localhost:8082/guide -F "resourceId={resourceId}" -F "researchGoal={researchGoal}"
-```
-4. Create or update guide (when updating a guide, provide the ```{resourceId}```, otherwise leave empty to create)
-```
-curl -X POST http://localhost:8082/guide -H "Content-Type: application/json" -d '{"resourceId": "{resourceId}", "researchGoal": "I want to learn how to create better abstracts", "Summary": "A summary of the guide", "relatedSections": [], "externalVideos": []}'
-```
-5. Generate a guide for an article (Agentic Component) (to use provided file, needs to be run at the /guides-service directory)
-```
-curl -X POST http://localhost:8082/guideAgent -F "file=@mockpaper.md" -F "researchGoal=Analyse the impact of AI"
+curl -X GET "http://localhost:8082/guide?resourceId={resourceId}&userId={userId}"
 ```
 
 # Suggestion Service
