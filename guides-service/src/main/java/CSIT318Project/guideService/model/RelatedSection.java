@@ -1,11 +1,13 @@
 package CSIT318Project.guideService.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class RelatedSection {
 
 	private String name;
+	@Column(columnDefinition = "TEXT")
 	private String summary;
 
 	public RelatedSection() {

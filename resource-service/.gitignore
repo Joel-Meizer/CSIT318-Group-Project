@@ -1,6 +1,42 @@
-# Build artifacts
+# Ignore Maven build output
 target/
 
-# IDE files
+# Ignore compiled Java classes
+*.class
+
+# Ignore generated JAR, WAR, and EAR files
+*.jar
+*.war
+*.ear
+
+# Ignore log files
+*.log
+
+# Ignore IDE-specific files
 .idea/
 *.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+
+# Ignore OS-specific files
+.DS_Store
+
+# Ignore other generated files
+.apt_generated
+.factorypath
+.springBeans
+.sts4-cache
+
+# NetBeans specific
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+# VS Code specific
+.vscode/

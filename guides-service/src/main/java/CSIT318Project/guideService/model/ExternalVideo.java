@@ -1,12 +1,14 @@
 package CSIT318Project.guideService.model;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Column;
 
 @Embeddable
 public class ExternalVideo {
 
 	private String url;
 	private String title;
+	@Column(columnDefinition = "TEXT")
 	private String description;
 
 	public ExternalVideo() {
