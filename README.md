@@ -90,9 +90,37 @@ curl -X GET http://localhost:8081/resources/{resourceId}
 ```
 
 # Order Service
-
+1. Get all orders
 ```
-curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d "{\"name\": \"Alice\", \"age\": 30}"
+curl -X GET http://localhost:8083/api/orders
+```
+2. Get a specific order by ID (substitute {orderId} with an ID from step 1)
+```
+curl -X GET http://localhost:8083/api/orders/{orderId}
+```
+3. Get orders for a specific user 
+```
+curl -X GET http://localhost:8083/api/orders/user/{userId}
+```
+4. Create a standard order (amount < $100)
+```
+curl -X POST http://localhost:8083/api/orders -H "Content-Type: application/json" -d "{\"userId\": 1, \"items\": [{\"productId\": 101, \"productName\": \"Introduction to Java\", \"quantity\": 1, \"price\": 45.00}]}"
+```
+5. Create a high-value order (amount > $100) - Triggers HIGH-VALUE alert and stream analytics
+```
+curl -X POST http://localhost:8083/api/orders -H "Content-Type: application/json" -d "{\"userId\": 2, \"items\": [{\"productId\": 102, \"productName\": \"Premium Course\", \"quantity\": 1, \"price\": 150.00}]}"
+```
+6. Create an anomaly order (significantly above average) - Triggers ANOMALY detection
+```
+curl -X POST http://localhost:8083/api/orders -H "Content-Type: application/json" -d "{\"userId\": 3, \"items\": [{\"productId\": 103, \"productName\": \"Enterprise Package\", \"quantity\": 1, \"price\": 500.00}]}"
+```
+7. Complete an order (substitute {orderId} - triggers OrderCompletedEvent for Suggestion Service)
+```
+curl -X PUT http://localhost:8083/api/orders/{orderId}/complete -H "Content-Type: application/json"
+```
+8. Get order history for recommendations (substitute {userId} - used by Suggestion Service)
+```
+curl -X GET http://localhost:8083/api/orders/history/{userId}
 ```
 
 # Guide Service
