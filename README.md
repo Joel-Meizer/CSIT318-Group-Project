@@ -130,11 +130,3 @@ curl -X POST http://localhost:8084/suggestions/generate/{userId}/orderHistory
 ```
 curl -X POST http://localhost:8084/suggestions/generate/{userId}/userPreferences
 ```
-
-# Events Simulation
-If you haven't already, ensure Apache Kafka is running on your machine:\
-[Go to Prerequisites](#prerequisites) and follow the Apache Kafka cmd steps
-# Streaming Simulation
-```
-example for streaming simulation
-```
