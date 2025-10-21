@@ -45,7 +45,7 @@ public class OrderService {
             System.out.println("🔍 Testing stream processor with amount: $" + savedOrder.getTotal());
 
             // TRIGGER STREAM PROCESSOR
-            streamProcessor.detectHighValueOrders().accept(event);
+            streamProcessor.analyzeOrderStream().accept(event);
 
         } catch (Exception e) {
             System.err.println("⚠️ Event publishing failed: " + e.getMessage());
