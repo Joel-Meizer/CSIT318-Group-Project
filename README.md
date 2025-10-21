@@ -38,15 +38,16 @@ This should then create 2 containers within your docker container registry, ensu
 4. Guides Service
 5. Suggestion Service
 # Account Service
-1. Viewing all user accounts
+1. Creating an account
+```
+curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d '{"email": "test.user@gmail.com", "firstName": "Test", "lastName": "User"}'
+```
+
+2. Viewing all user accounts (keep note of the ```{userId}``` from the result for future tests)
 ```
 curl -X GET http://localhost:8080/api/users 
 ```
 
-2. Creating an account
-```
-curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d '{"email": "test.user@gmail.com", "firstName": "Test", "lastName": "User"}'
-```
 3. Adding a research goal to a user account (provide a ```{userId}``` from a result of step 1)
 ```
 curl -X PUT http://localhost:8080/api/users/{userId}/research-goal -H "Content-Type: application/json" -d '{"researchGoal": "Gain knowledge in any random topic"}'
@@ -67,13 +68,17 @@ curl -X PUT http://localhost:8080/api/users/{userId} -H "Content-Type: applicati
 curl -X POST http://localhost:8080/api/users/{userId}/cancel-membership
 ```
 # Resource Service
+1. Load all resources into the database, grant the upload_resources.sh script executable permissions and run it
+```
+./upload_resources.sh
+```
 
-1. Collect all resources
+2. Collect all resources (keep note of a ```{resourceId}``` from the result for future tests)
 ```
 curl -X GET http://localhost:8081/resources
 ```
 
-2. Collect a specific resource (provide a ```{resourceId}``` from a result of step 1)
+3. Collect a specific resource (provide a ```{resourceId}``` from a result of step 1)
 ```
 curl -X GET http://localhost:8081/resources/{resourceId}
 ```
@@ -93,7 +98,7 @@ curl -X GET http://localhost:8082/guides
 ```
 curl -X GET http://localhost:8082/guide/{guideId}
 ```
-3. Generate a guide for an article (Agentic Component), provide ```{resourceId}``` from step 1 of the resource service tests and ```{userId}``` from step 1 of the account service tests, best results if the research goal matches the resource topic
+3. Generate a guide for an article (Agentic Component), provide ```{resourceId}``` from step 2 of the resource service tests and ```{userId}``` from step 2 of the account service tests, best results if the research goal matches the resource topic
 ```
 curl -X GET "http://localhost:8082/guide?resourceId={resourceId}&userId={userId}"
 ```
