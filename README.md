@@ -40,7 +40,7 @@ This should then create 2 containers within your docker container registry, ensu
 # Account Service
 1. Creating an account
 ```
-curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d '{\"email\": \"test.user@gmail.com\", \"firstName\": \"Test\", \"lastName\": \"User\"}'
+curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d "{\"email\": \"test.user@gmail.com\", \"firstName\": \"Test\", \"lastName\": \"User\"}"
 ```
 
 2. Viewing all user accounts (keep note of the ```{userId}``` from the result for future tests)
@@ -50,7 +50,7 @@ curl -X GET http://localhost:8080/api/users
 
 3. Adding a research goal to a user account (provide a ```{userId}``` from a result of step 1)
 ```
-curl -X PUT http://localhost:8080/api/users/{userId}/research-goal -H "Content-Type: application/json" -d '{\"researchGoal\": \"Gain knowledge in any random topic\"}'
+curl -X PUT http://localhost:8080/api/users/{userId}/research-goal -H "Content-Type: application/json" -d "{\"researchGoal\": \"Gain knowledge in any random topic\"}"
 ```
 
 4. Viewing a specific user account (provide a ```{userId}``` from a result of step 1)
@@ -60,12 +60,18 @@ curl -X GET http://localhost:8080/api/users/{userId}
 
 5. Modifying a specific user account (provide a ```{userId}``` from a result of step 1)
 ```
-curl -X PUT http://localhost:8080/api/users/{userId} -H "Content-Type: application/json" -d '{\"lastName\": \"User-Modified\"}'
+curl -X PUT http://localhost:8080/api/users/{userId} -H "Content-Type: application/json" -d "{\"lastName\": \"User-Modified\"}"
 ```
 
 6. Cancelling a membership
 ```
 curl -X POST http://localhost:8080/api/users/{userId}/cancel-membership
+```
+
+7. Create another user, then modify their user preferences (this is key for the suggestion service)
+```
+curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d "{\"email\": \"test.user2@gmail.com\", \"firstName\": \"Test\", \"lastName\": \"User\"}"
+curl -X PATCH http://localhost:8080/api/users/{userId}/update-preferences -H "Content-Type: application/json" -d "{\"knowledgeType\":\"Video\",\"knowledgeLevel\":\"Proficient\",\"userPreferenceString\":\"I have been in the health sector for a couple of months now and I want to start learning more about dieting\",\"genres\":[\"Machine Learning\",\"Health and Medicine\"]}"
 ```
 # Resource Service
 1. Load all resources into the database, grant the upload_resources.sh script executable permissions and run it
@@ -86,7 +92,7 @@ curl -X GET http://localhost:8081/resources/{resourceId}
 # Order Service
 
 ```
-curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d '{\"name\": \"Alice\", \"age\": 30}'
+curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d "{\"name\": \"Alice\", \"age\": 30}"
 ```
 
 # Guide Service
@@ -114,7 +120,7 @@ curl -X GET http://localhost:8084/suggestions/{suggestionId}
 ```
 3. Generate a suggestion via manual input filters (you can modify the body to accept any Educational Resource properties, in this case we are using the ```knowledgeLevel``` property)
 ```
-curl -X POST http://localhost:8084/suggestions/generate -H "Content-Type: application/json" -d '{\"knowledgeLevel\": \"Beginner\"}'
+curl -X POST http://localhost:8084/suggestions/generate -H "Content-Type: application/json" -d "{\"knowledgeLevel\": \"Beginner\"}"
 ```
 4. Generate a suggestion from a user's order history (Agentic Component) (substitute ```{userId}``` for a userId from step 2 of the account service tests)
 ```
