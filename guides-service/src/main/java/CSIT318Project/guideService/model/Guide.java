@@ -21,9 +21,9 @@ public class Guide {
 
 	@Column
 	private UUID resourceId;
-	@Column
+	@Column(columnDefinition = "TEXT")
 	private String researchGoal;
-	@Column
+	@Column(columnDefinition = "TEXT")
 	private String summary;
 
 	@ElementCollection
