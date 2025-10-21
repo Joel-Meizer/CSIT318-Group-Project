@@ -18,10 +18,10 @@ Below you should find outlined test cases alongside code to assist in hitting ea
 > Failure to complete these steps will prevent the project from executing
 - `Google Gemini API Key` (can be created at https://aistudio.google.com/api-keys):
   - Create a new environment variable for both the Guide-Service and Suggestion-Service, it must be formatted `GEMINI_API_KEY={api_key}`
-- `Youtube API Key` (provided by the lecturer):
+- `Youtube API Key` (a free key is provided):
   - Create a new environment variable for the Guide-Service, it must be formatted `YOUTUBE_API_KEY=AIzaSyAGqvBRtBMeY1XbVMVXrD20wmg1mf7tvHA`
 - `Docker Desktop` must be installed on your system
-  - Once you have opened docker desktop, run the following command at the root directory (./CSIT-381-Group-Project)
+  - Once you have opened docker desktop, run the following command at the root directory (./CSIT381-Group-Project)
 ```
 docker-compose up -d
 ```
@@ -38,24 +38,29 @@ This should then create 2 containers within your docker container registry, ensu
 4. Guides Service
 5. Suggestion Service
 # Account Service
-1. Viewing all user accounts
+1. Creating an account
+```
+curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d '{\"email\": \"test.user@gmail.com\", \"firstName\": \"Test\", \"lastName\": \"User\"}'
+```
+
+2. Viewing all user accounts (keep note of the ```{userId}``` from the result for future tests)
 ```
 curl -X GET http://localhost:8080/api/users 
 ```
 
-2. Creating an account
+3. Adding a research goal to a user account (provide a ```{userId}``` from a result of step 1)
 ```
-curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d '{"email": "test.user@gmail.com", "firstName": "Test", "lastName": "User"}'
+curl -X PUT http://localhost:8080/api/users/{userId}/research-goal -H "Content-Type: application/json" -d '{\"researchGoal\": \"Gain knowledge in any random topic\"}'
 ```
 
-3. Viewing a specific user account (provide a ```{userId}``` from a result of step 1)
+4. Viewing a specific user account (provide a ```{userId}``` from a result of step 1)
 ```
 curl -X GET http://localhost:8080/api/users/{userId} 
 ```
 
-4. Modifying a specific user account (provide a ```{userId}``` from a result of step 1)
+5. Modifying a specific user account (provide a ```{userId}``` from a result of step 1)
 ```
-curl -X PUT http://localhost:8080/api/users/{userId} -H "Content-Type: application/json" -d '{"lastName": "User-Modified"}'
+curl -X PUT http://localhost:8080/api/users/{userId} -H "Content-Type: application/json" -d '{\"lastName\": \"User-Modified\"}'
 ```
 
 6. Cancelling a membership
@@ -63,13 +68,17 @@ curl -X PUT http://localhost:8080/api/users/{userId} -H "Content-Type: applicati
 curl -X POST http://localhost:8080/api/users/{userId}/cancel-membership
 ```
 # Resource Service
+1. Load all resources into the database, grant the upload_resources.sh script executable permissions and run it
+```
+./upload_resources.sh
+```
 
-1. Collect all resources
+2. Collect all resources (keep note of a ```{resourceId}``` from the result for future tests)
 ```
 curl -X GET http://localhost:8081/resources
 ```
 
-2. Collect a specific resource (provide a ```{resourceId}``` from a result of step 1)
+3. Collect a specific resource (provide a ```{resourceId}``` from a result of step 1)
 ```
 curl -X GET http://localhost:8081/resources/{resourceId}
 ```
@@ -77,7 +86,7 @@ curl -X GET http://localhost:8081/resources/{resourceId}
 # Order Service
 
 ```
-curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d '{"name": "Alice", "age": 30}'
+curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d '{\"name\": \"Alice\", \"age\": 30}'
 ```
 
 # Guide Service
@@ -89,17 +98,9 @@ curl -X GET http://localhost:8082/guides
 ```
 curl -X GET http://localhost:8082/guide/{guideId}
 ```
-3. Collect a guide by resourceID and researchGoal
+3. Generate a guide for an article (Agentic Component), provide ```{resourceId}``` from step 2 of the resource service tests and ```{userId}``` from step 2 of the account service tests, best results if the research goal matches the resource topic
 ```
-curl -X GET http://localhost:8082/guide -F "resourceId={resourceId}" -F "researchGoal={researchGoal}"
-```
-4. Create or update guide
-```
-curl -X POST http://localhost:8082/guide -H "Content-Type: application/json" -d '{"resourceId": "{resourceId}", "researchGoal": "I want to learn how to create better abstracts", "Summary": "A summary of the guide", "relatedSections": [], "externalVideos": []}'
-```
-5. Generate a guide for an article (Agentic Component) (provide a ```{filePath}``` of your own, otherwise copy the full path for mockpaper.md from guides-service/mockpaper.md)
-```
-curl -X POST "http://localhost:8082/guideAgent" -H "Content-Type: multipart/form-data" -F "researchGoal=Understanding nutrition for athletes" -F "file=@{filePath}"
+curl -X GET "http://localhost:8082/guide?resourceId={resourceId}&userId={userId}"
 ```
 
 # Suggestion Service
@@ -113,7 +114,7 @@ curl -X GET http://localhost:8084/suggestions/{suggestionId}
 ```
 3. Generate a suggestion via manual input filters (you can modify the body to accept any Educational Resource properties, in this case we are using the ```knowledgeLevel``` property)
 ```
-curl -X POST http://localhost:8084/suggestions/generate -H "Content-Type: application/json" -d '{"knowledgeLevel": "Beginner"}'
+curl -X POST http://localhost:8084/suggestions/generate -H "Content-Type: application/json" -d '{\"knowledgeLevel\": \"Beginner\"}'
 ```
 4. Generate a suggestion from a user's order history (Agentic Component) (substitute ```{userId}``` for a userId from step 2 of the account service tests)
 ```
