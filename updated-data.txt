@@ -1,0 +1,11 @@
+title: AI Ethics in Creative Fields
+authors: Dr. Alice Johnson, Prof. Bob Lee
+genre: AI Research
+knowledgeLevel: INTERMEDIATE
+knowledgeType: Paper
+description: An extended study of the ethical landscape emerging from the use of AI systems in creative domains.
+publicationDate: 2023-10-19
+---
+Title: Creativity, Bias, and Responsibility: Ethical Frameworks for AI in the Creative Fields
+
+This is an updated data

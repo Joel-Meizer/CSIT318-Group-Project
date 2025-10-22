@@ -81,12 +81,17 @@ curl -X PATCH http://localhost:8080/api/users/{userId}/update-preferences -H "Co
 # Resource Service
 1. Load all resources into the database, grant the upload_resources.sh script executable permissions and run it
 ```
+chmod +x upload_resources.sh
 ./upload_resources.sh
 ```
 
 2. Collect all resources (keep note of a ```{resourceId}``` from the result for future tests)
 ```
 curl -X GET http://localhost:8081/resources
+```
+if the result is overflowing then piping it to a file will help you get the first id easier
+```
+curl -X GET http://localhost:8081/resources > resources.json
 ```
 
 3. Collect a specific resource (provide a ```{resourceId}``` from a result of step 1)
@@ -129,17 +134,25 @@ curl -X GET http://localhost:8083/api/orders/history/{userId}
 ```
 
 # Guide Service
-1. Collect all guides
+1. Generate a guide for an article (Agentic Component), provide ```{resourceId}``` from step 2 of the resource service tests and ```{userId}``` from step 2 of the account service tests, best results if the research goal matches the resource topic
+```
+curl -X GET "http://localhost:8082/guide?resourceId={resourceId}&userId={userId}"
+```
+
+2. Collect all guides
 ```
 curl -X GET http://localhost:8082/guides
 ```
-2. Collect a specific guide (provide a ```{guideId}``` from a result of step 1)
+
+3. Collect a specific guide (provide a ```{guideId}``` from a result of step 1)
 ```
 curl -X GET http://localhost:8082/guide/{guideId}
 ```
-3. Generate a guide for an article (Agentic Component), provide ```{resourceId}``` from step 2 of the resource service tests and ```{userId}``` from step 2 of the account service tests, best results if the research goal matches the resource topic
+
+4. Delete a cached guide when a resource is updated via Kafka events
 ```
-curl -X GET "http://localhost:8082/guide?resourceId={resourceId}&userId={userId}"
+curl -X PUT "http://localhost:8081/resources/{guideId}" -F "file=@updated-data.txt"
+curl -X GET http://localhost:8082/guides
 ```
 
 # Suggestion Service
