@@ -4,16 +4,20 @@ import CSIT318Project.suggestionService.Enums.KnowledgeLevel;
 import CSIT318Project.suggestionService.Enums.KnowledgeType;
 import CSIT318Project.suggestionService.agentic.SuggestionAgent;
 import CSIT318Project.suggestionService.model.EducationalResource;
-import CSIT318Project.suggestionService.model.Inheritors.Book;
 import CSIT318Project.suggestionService.model.Suggestion;
 import CSIT318Project.suggestionService.model.SuggestionGenerateModel;
 import CSIT318Project.suggestionService.model.UserPreferenceModel;
 import CSIT318Project.suggestionService.repository.EducationalResourceRepository;
 import CSIT318Project.suggestionService.repository.SuggestionRepository;
 import CSIT318Project.suggestionService.service.dto.SuggestionDTO;
+import CSIT318Project.suggestionService.service.dto.SuggestedResourcesResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.*;
 
@@ -29,8 +33,11 @@ public class SuggestionService {
     @Autowired
     private SuggestionAgent suggestionAgent;
 
-    SuggestionService(SuggestionRepository suggestionRepository) {
+    private final HttpWebClient httpWebClient;
+
+    SuggestionService(SuggestionRepository suggestionRepository, HttpWebClient httpWebClient) {
         this.suggestionRepository = suggestionRepository;
+        this.httpWebClient = httpWebClient;
     }
 
     public List<SuggestionDTO> getAllSuggestions() {
@@ -45,7 +52,6 @@ public class SuggestionService {
             .collect(Collectors.toList());
     }
 
-
     public SuggestionDTO getSuggestion(UUID suggestionId) {
         Suggestion suggestion = suggestionRepository.findById(suggestionId).orElseThrow(RuntimeException::new);
         return new SuggestionDTO(
@@ -55,54 +61,68 @@ public class SuggestionService {
         );
     }
 
-    public SuggestionDTO generateSuggestionForUserPreferences(int userId) {
-        // API Call to the users account via their id, collect the user preferences
-        // Provide information from the user to the agentic element to collect me some educational resources to bundle into the SuggestionDTO
+    public SuggestionDTO generateSuggestionForUserPreferences(long userId) {
+        UserPreferenceModel userPreferenceModel = httpWebClient.GetRESTAsync(String.format("http://localhost:8080/api/users/%s/preferences", userId), UserPreferenceModel.class);
 
-        SuggestionGenerateModel model = suggestionAgent.generateFromPreferences(
-                "Generate a SuggestionGenerateModel based on a UserPreferenceModel",
-                new UserPreferenceModel(),
-                educationalResourceRepository.findAll(),
-                educationalResourceRepository.findDistinctGenres(),
-                Arrays.asList(KnowledgeLevel.values()),
-                Arrays.asList(KnowledgeType.values())
+        StringBuilder userMessageBuilder = new StringBuilder();
+        userMessageBuilder.append("Here are the user's learning preferences. Please generate a List of EducationalResources based on them.\n\n");
+        userMessageBuilder.append("The response SuggestiongenerateModel must match with at least 1 EducationalResource.\n\n");
+
+        if(userPreferenceModel.userPreferenceString != null) {
+            userMessageBuilder.append(userPreferenceModel.userPreferenceString).append("\n\n");
+        }
+
+        if (userPreferenceModel.genres != null) {
+            userMessageBuilder.append("My favourite genres are ").append(String.join(", ", userPreferenceModel.genres)).append(".\n");
+        }
+
+        if (userPreferenceModel.knowledgeLevel != null) {
+            userMessageBuilder.append("I don't want any EducationalResources that are a higher knowledge level than ").append(userPreferenceModel.knowledgeLevel.name()).append(".\n");
+        }
+
+        if (userPreferenceModel.knowledgeType != null) {
+            userMessageBuilder.append("I only want resources with the type: ").append(userPreferenceModel.knowledgeType.name()).append(".\n");
+        }
+
+        AppendKnowledgeTypesLevelsToSB(userMessageBuilder);
+
+        SuggestedResourcesResponseDTO suggestedResources = suggestionAgent.generateFromPreferences(
+                userMessageBuilder.toString(),
+                educationalResourceRepository.findAll()
         ).content();
 
-        // Post Process the model in case we get back fields we dont want
-        model.title = null;
-        model.description = null;
-        model.authors = null;
-        model.publicationDate = null;
-        model.source = null;
-        model.url = null;
-
-        return SaveSuggestionCreateDTO("Collected suggested resources based on user preferences", educationalResourceRepository.findAll(buildSpecification(model)));
+        return SaveSuggestionCreateDTO("Collected suggested resources based on user preferences", suggestedResources.resources);
     }
 
-    public SuggestionDTO generateSuggestionFromOrderHistory(UUID userId) {
-        // API Call to the users account via their id, collect the order history
-        // Provide information from the user to the agentic element to collect me some educational resources to bundle into the SuggestionDTO
+    public SuggestionDTO generateSuggestionFromOrderHistory(long userId) {
+        String response = httpWebClient.GetRESTAsync(String.format("http://localhost:8083/api/orders/history/%s", userId));
 
-        List< EducationalResource> previouslyOrdered = new ArrayList<EducationalResource>();
+        List<EducationalResource> previouslyOrdered;
 
-        SuggestionGenerateModel model = suggestionAgent.generateFromOrderHistory(
-                "Generate a SuggestionGenerateModel based on previouslyOrdered ensuring if a search model is produced, we only provide validGenres, validLevels and validTypes",
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            previouslyOrdered = mapper.readValue(response, new TypeReference<List<EducationalResource>>() {});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to parse JSON response", e);
+        }
+
+        StringBuilder userMessageBuilder = new StringBuilder();
+        userMessageBuilder.append("Here are the user's previously ordered items. Please generate a List of EducationalResources based on them.\n\n");
+        userMessageBuilder.append("The response SuggestiongenerateModel must match with at least 1 EducationalResource.\n\n");
+        userMessageBuilder.append("Below are my previously ordered items:\n\n");
+        for(EducationalResource resource : previouslyOrdered) {
+            userMessageBuilder.append(resource.toString());
+        }
+
+        AppendKnowledgeTypesLevelsToSB(userMessageBuilder);
+
+        SuggestedResourcesResponseDTO suggestedResources = suggestionAgent.generateFromOrderHistory(
+                userMessageBuilder.toString(),
                 previouslyOrdered,
-                educationalResourceRepository.findAll(),
-                educationalResourceRepository.findDistinctGenres(),
-                Arrays.asList(KnowledgeLevel.values()),
-                Arrays.asList(KnowledgeType.values())
+                educationalResourceRepository.findAll()
         ).content();
 
-        // Post Process the model in case we get back fields we dont want
-        model.title = null;
-        model.description = null;
-        model.authors = null;
-        model.publicationDate = null;
-        model.source = null;
-        model.url = null;
-
-        return SaveSuggestionCreateDTO("Collected suggested resources based on order history", educationalResourceRepository.findAll(buildSpecification(model)));
+        return SaveSuggestionCreateDTO("Collected suggested resources based on order history", suggestedResources.resources);
     }
 
     public SuggestionDTO generateSuggestionWithManualInputs(SuggestionGenerateModel inputModel) {
@@ -115,6 +135,7 @@ public class SuggestionService {
                 matchedResources
         );
 
+        educationalResourceRepository.saveAll(matchedResources);
         suggestionRepository.save(generatedSuggestion);
 
         SuggestionDTO dto = new SuggestionDTO();
@@ -154,4 +175,11 @@ public class SuggestionService {
         };
     }
 
+    private void AppendKnowledgeTypesLevelsToSB (StringBuilder sb) {
+        sb.append("You cannot create any new knowledgeTypes or knowledgeLevels, below are the valid types and levels that can be returns.\n");
+        List<KnowledgeLevel> knowledgeLevels = educationalResourceRepository.findDistinctKnowledgeLevels();
+        List<KnowledgeType> knowledgeTypes = educationalResourceRepository.findDistinctKnowledgeTypes();
+        sb.append("KnowledgeTypes: ").append(String.join(", ", knowledgeTypes.stream().map(Enum::name).toList())).append("\n");
+        sb.append("KnowledgeLevels: ").append(String.join(", ", knowledgeLevels.stream().map(Enum::name).toList())).append("\n");
+    }
 }

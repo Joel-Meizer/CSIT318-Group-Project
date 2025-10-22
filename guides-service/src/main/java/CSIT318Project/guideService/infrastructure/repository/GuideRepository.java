@@ -9,4 +9,6 @@ import CSIT318Project.guideService.model.Guide;
 
 public interface GuideRepository extends JpaRepository<Guide, UUID> {
 	Optional<Guide> findByResourceIdAndResearchGoal(UUID resourceId, String researchGoal);
+
+	void deleteByResourceId(UUID resourceId);
 }

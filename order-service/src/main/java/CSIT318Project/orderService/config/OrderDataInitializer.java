@@ -1,5 +1,7 @@
 package CSIT318Project.orderService.config;
 
+import CSIT318Project.orderService.enums.KnowledgeLevel;
+import CSIT318Project.orderService.enums.KnowledgeType;
 import CSIT318Project.orderService.model.Order;
 import CSIT318Project.orderService.model.OrderItem;
 import CSIT318Project.orderService.model.OrderStatus;
@@ -7,6 +9,10 @@ import CSIT318Project.orderService.repository.OrderRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.UUID;
 
 @Configuration
 public class OrderDataInitializer {
@@ -20,8 +26,25 @@ public class OrderDataInitializer {
             Order order1 = new Order(1L);  // userId = 1 (Alice Johnson from account-service)
             order1.setStatus(OrderStatus.DELIVERED);
 
-            OrderItem item1 = new OrderItem(101L, "Clean Code", 1, 49.99);
-            OrderItem item2 = new OrderItem(102L, "Design Patterns", 1, 54.99);
+            UUID sharedId = UUID.randomUUID();
+
+            OrderItem item1 = new OrderItem(sharedId, "Clean Code", 1, 49.99,
+                    "A handbook of agile software craftsmanship",
+                    new String[] { "Robert C. Martin" },
+                    new GregorianCalendar(2008, Calendar.AUGUST, 1).getTime(),
+                    "Software Development",
+                    "https://example.com/clean-code",
+                    KnowledgeLevel.Expert,
+                    KnowledgeType.Book);
+
+            OrderItem item2 = new OrderItem(UUID.randomUUID(), "Design Patterns", 1, 54.99,
+                    "Elements of reusable object-oriented software",
+                    new String[] { "Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides" },
+                    new GregorianCalendar(1994, Calendar.OCTOBER, 31).getTime(),
+                    "Software Development",
+                    "https://example.com/design-patterns",
+                    KnowledgeLevel.Proficient,
+                    KnowledgeType.Book);
 
             order1.addItem(item1);
             order1.addItem(item2);
@@ -32,7 +55,14 @@ public class OrderDataInitializer {
             Order order2 = new Order(2L);  // userId = 2 (Bob Smith)
             order2.setStatus(OrderStatus.SHIPPED);
 
-            OrderItem item3 = new OrderItem(103L, "Spring in Action", 1, 44.99);
+            OrderItem item3 = new OrderItem(UUID.randomUUID(), "Spring in Action", 1, 44.99,
+                    "Comprehensive guide to Spring framework",
+                    new String[] { "Craig Walls" },
+                    new GregorianCalendar(2018, Calendar.JULY, 1).getTime(),
+                    "Web Development",
+                    "https://example.com/spring-in-action",
+                    KnowledgeLevel.Intermediate,
+                    KnowledgeType.Book);
 
             order2.addItem(item3);
             order2.setTotal(order2.calculateTotal());
@@ -42,8 +72,23 @@ public class OrderDataInitializer {
             Order order3 = new Order(3L);  // userId = 3 (Carol White)
             order3.setStatus(OrderStatus.CONFIRMED);
 
-            OrderItem item4 = new OrderItem(104L, "Microservices Patterns", 1, 59.99);
-            OrderItem item5 = new OrderItem(105L, "Domain-Driven Design", 1, 64.99);
+            OrderItem item4 = new OrderItem(UUID.randomUUID(), "Microservices Patterns", 1, 59.99,
+                    "Solutions to key microservice architecture challenges",
+                    new String[] { "Chris Richardson" },
+                    new GregorianCalendar(2018, Calendar.SEPTEMBER, 25).getTime(),
+                    "Cloud Computing",
+                    "https://example.com/microservices-patterns",
+                    KnowledgeLevel.Proficient,
+                    KnowledgeType.Book);
+
+            OrderItem item5 = new OrderItem(UUID.randomUUID(), "Domain-Driven Design", 1, 64.99,
+                    "Tackling complexity in the heart of software",
+                    new String[] { "Eric Evans" },
+                    new GregorianCalendar(2003, Calendar.AUGUST, 30).getTime(),
+                    "Software Development",
+                    "https://example.com/domain-driven-design",
+                    KnowledgeLevel.Expert,
+                    KnowledgeType.Book);
 
             order3.addItem(item4);
             order3.addItem(item5);
@@ -54,7 +99,14 @@ public class OrderDataInitializer {
             Order order4 = new Order(4L);  // userId = 4 (David Brown)
             order4.setStatus(OrderStatus.PENDING);
 
-            OrderItem item6 = new OrderItem(101L, "Clean Code", 1, 49.99);
+            OrderItem item6 = new OrderItem(sharedId, "Clean Code", 1, 49.99,
+                    "Duplicate purchase of Clean Code",
+                    new String[] { "Robert C. Martin" },
+                    new GregorianCalendar(2008, Calendar.AUGUST, 1).getTime(),
+                    "Software Development",
+                    "https://example.com/clean-code",
+                    KnowledgeLevel.Expert,
+                    KnowledgeType.Book);
 
             order4.addItem(item6);
             order4.setTotal(order4.calculateTotal());
@@ -64,8 +116,23 @@ public class OrderDataInitializer {
             Order order5 = new Order(1L);
             order5.setStatus(OrderStatus.DRAFT);
 
-            OrderItem item7 = new OrderItem(106L, "Java Programming Course", 1, 299.99);
-            OrderItem item8 = new OrderItem(107L, "Advanced Spring Boot", 1, 199.99);
+            OrderItem item7 = new OrderItem(UUID.randomUUID(), "Java Programming Course", 1, 299.99,
+                    "Comprehensive Java course for professionals",
+                    new String[] { "Alice Johnson", "Frank Harris" },
+                    new GregorianCalendar(2022, Calendar.MARCH, 15).getTime(),
+                    "Programming",
+                    "https://example.com/java-course",
+                    KnowledgeLevel.Intermediate,
+                    KnowledgeType.Video);
+
+            OrderItem item8 = new OrderItem(UUID.randomUUID(), "Advanced Spring Boot", 1, 199.99,
+                    "Deep dive into Spring Boot internals",
+                    new String[] { "Emily Zhang", "Carlos Vega" },
+                    new GregorianCalendar(2023, Calendar.JUNE, 10).getTime(),
+                    "Web Development",
+                    "https://example.com/advanced-spring-boot",
+                    KnowledgeLevel.Proficient,
+                    KnowledgeType.Video);
 
             order5.addItem(item7);
             order5.addItem(item8);

@@ -3,7 +3,6 @@ package CSIT318Project.orderService.controller;
 import CSIT318Project.orderService.model.Order;
 import CSIT318Project.orderService.model.OrderItem;
 import CSIT318Project.orderService.model.OrderStatus;
-import CSIT318Project.orderService.model.EducationalResource;
 import CSIT318Project.orderService.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,22 +45,14 @@ public class OrderController {
 
     //  Get Order History as Educational Resources
     @GetMapping("/history/{userId}")
-    public ResponseEntity<List<EducationalResource>> getOrderHistory(@PathVariable Long userId) {
+    public ResponseEntity<List<Object>> getOrderHistory(@PathVariable Long userId) {
         List<Order> userOrders = orderService.getOrdersByUserId(userId);
-        List<EducationalResource> resources = new ArrayList<>();
+        List<Object> resources = new ArrayList<>();
 
         for (Order order : userOrders) {
-            if (order.getStatus() == OrderStatus.DELIVERED ||
-                    order.getStatus() == OrderStatus.SHIPPED) {
-                for (OrderItem item : order.getItems()) {
-                    EducationalResource resource = new EducationalResource(
-                            item.getProductId(),
-                            item.getProductName(),
-                            "Unknown Author",
-                            "Book",
-                            item.getPrice()
-                    );
-                    resources.add(resource);
+            if (order.getStatus() == OrderStatus.DELIVERED || order.getStatus() == OrderStatus.SHIPPED) {
+                for(OrderItem item : order.getItems()) {
+                    resources.add(orderService.toEducationalResource(item));
                 }
             }
         }

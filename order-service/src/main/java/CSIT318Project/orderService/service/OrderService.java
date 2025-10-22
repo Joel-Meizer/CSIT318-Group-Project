@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,7 +76,7 @@ public class OrderService {
         Order completedOrder = orderRepository.save(order);
 
         try {
-            List<Long> resourceIds = completedOrder.getItems().stream()
+            List<UUID> resourceIds = completedOrder.getItems().stream()
                     .map(OrderItem::getProductId)
                     .collect(Collectors.toList());
 
@@ -91,5 +91,19 @@ public class OrderService {
         }
 
         return completedOrder;
+    }
+
+    public Object toEducationalResource (OrderItem item) {
+        Map<String, Object> resource = new HashMap<>();
+        resource.put("resourceId", item.getProductId());
+        resource.put("title", item.getProductName());
+        resource.put("description", item.getDescription());
+        resource.put("authors", item.getAuthors());
+        resource.put("publicationDate", item.getPublicationDate());
+        resource.put("genre", item.getGenre());
+        resource.put("url", item.getUrl());
+        resource.put("knowledgeLevel", item.getKnowledgeLevel());
+        resource.put("knowledgeType", item.getKnowledgeType());
+        return resource;
     }
 }
