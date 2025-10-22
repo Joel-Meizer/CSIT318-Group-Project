@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dcc3fcd9-51a4-41a7-854e-d2b23e466f75" name="Changes" comment=".">
+    <list default="true" id="dcc3fcd9-51a4-41a7-854e-d2b23e466f75" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/CSIT318Project/orderService/config/RestTemplateConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/CSIT318Project/orderService/service/ResourceServiceClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/CSIT318Project/orderService/config/OrderDataInitializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/CSIT318Project/orderService/model/EducationalResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/CSIT318Project/orderService/model/EducationalResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/CSIT318Project/orderService/model/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/CSIT318Project/orderService/model/OrderItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order-service/src/main/java/CSIT318Project/orderService/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/CSIT318Project/orderService/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/CSIT318Project/orderService/stream/OrderStreamProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/CSIT318Project/orderService/stream/OrderStreamProcessor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

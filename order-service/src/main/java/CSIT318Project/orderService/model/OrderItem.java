@@ -1,7 +1,7 @@
 package CSIT318Project.orderService.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "order_items")
@@ -11,21 +11,19 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long productId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
+
+    private UUID productId;
     private String productName;
     private Integer quantity;
     private Double price;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    @JsonIgnore
-    private Order order;
-
     // Constructors
-    public OrderItem() {
-    }
+    public OrderItem() {}
 
-    public OrderItem(Long productId, String productName, Integer quantity, Double price) {
+    public OrderItem(UUID productId, String productName, Integer quantity, Double price) {
         this.productId = productId;
         this.productName = productName;
         this.quantity = quantity;
@@ -41,11 +39,19 @@ public class OrderItem {
         this.id = id;
     }
 
-    public Long getProductId() {
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public UUID getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(UUID productId) {
         this.productId = productId;
     }
 
@@ -71,13 +77,5 @@ public class OrderItem {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 }

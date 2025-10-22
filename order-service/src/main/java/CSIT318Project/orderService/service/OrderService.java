@@ -1,5 +1,7 @@
 package CSIT318Project.orderService.service;
 
+import CSIT318Project.orderService.client.ResourceServiceClient;
+import CSIT318Project.orderService.model.EducationalResource;
 import CSIT318Project.orderService.model.Order;
 import CSIT318Project.orderService.model.OrderItem;
 import CSIT318Project.orderService.model.OrderStatus;
@@ -19,20 +21,49 @@ import java.util.stream.Collectors;
 public class OrderService {
 
     @Autowired
-    private OrderStreamProcessor streamProcessor;
-
-    @Autowired
     private OrderRepository orderRepository;
 
     @Autowired
     private OrderEventPublisher orderEventPublisher;
 
+    @Autowired
+    private OrderStreamProcessor streamProcessor;
+
+    @Autowired
+    private ResourceServiceClient resourceServiceClient;
+
     public Order createOrder(Order order) {
+        // FETCH REAL DATA FROM RESOURCE SERVICE
+        System.out.println("📦 Processing order with " + order.getItems().size() + " items");
+
+        for (OrderItem item : order.getItems()) {
+            // If productName or price not provided, fetch from Resource Service
+            if (item.getProductName() == null || item.getPrice() == null) {
+                System.out.println("🔍 Fetching data for product: " + item.getProductId());
+
+                EducationalResource resource = resourceServiceClient.getResourceById(item.getProductId());
+
+                if (resource != null) {
+                    item.setProductName(resource.getTitle());
+                    item.setPrice(resource.getPrice());
+                    System.out.println("✅ Populated: " + resource.getTitle() + " - $" + resource.getPrice());
+                } else {
+                    throw new RuntimeException("❌ Resource not found: " + item.getProductId());
+                }
+            }
+
+            // Set the bidirectional relationship
+            item.setOrder(order);
+        }
+
+        // Set initial state and calculate total
         order.setStatus(OrderStatus.DRAFT);
         order.setTotal(order.calculateTotal());
         Order savedOrder = orderRepository.save(order);
 
-        // Publish event
+        System.out.println("🔍 Testing stream processor with amount: $" + savedOrder.getTotal());
+
+        // Publish event and trigger stream processing
         try {
             OrderPlacedEvent event = new OrderPlacedEvent(
                     String.valueOf(savedOrder.getId()),
@@ -40,13 +71,7 @@ public class OrderService {
                     savedOrder.getTotal()
             );
             orderEventPublisher.publishOrderPlaced(event);
-
-            // DEBUG LINE
-            System.out.println("🔍 Testing stream processor with amount: $" + savedOrder.getTotal());
-
-            // TRIGGER STREAM PROCESSOR
             streamProcessor.analyzeOrderStream().accept(event);
-
         } catch (Exception e) {
             System.err.println("⚠️ Event publishing failed: " + e.getMessage());
         }
@@ -77,7 +102,7 @@ public class OrderService {
 
         try {
             List<Long> resourceIds = completedOrder.getItems().stream()
-                    .map(OrderItem::getProductId)
+                    .map(item -> item.getProductId().getMostSignificantBits()) // Convert UUID to Long for compatibility
                     .collect(Collectors.toList());
 
             OrderCompletedEvent event = new OrderCompletedEvent(
@@ -91,5 +116,23 @@ public class OrderService {
         }
 
         return completedOrder;
+    }
+
+    public List<EducationalResource> getOrderHistory(Long userId) {
+        List<Order> orders = orderRepository.findByUserId(userId);
+
+        return orders.stream()
+                .filter(order -> order.getStatus() == OrderStatus.DELIVERED ||
+                        order.getStatus() == OrderStatus.SHIPPED)
+                .flatMap(order -> order.getItems().stream())
+                .map(item -> new EducationalResource(
+                        item.getProductId(),
+                        item.getProductName(),
+                        "", // author - not stored in OrderItem
+                        "", // category - not stored in OrderItem
+                        item.getPrice()
+                ))
+                .distinct()
+                .collect(Collectors.toList());
     }
 }
