@@ -2,6 +2,7 @@ package com.library.accounts.model;
 
 import jakarta.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.library.accounts.model.UserPreferences;
@@ -23,8 +24,6 @@ public class UserAccount {
     private String firstName;
     private String lastName;
 
-    @Embedded
-    private UserPreferences userPreferences;
 
     private String researchGoal;
 
@@ -38,6 +37,20 @@ public class UserAccount {
 
 
     private Instant createdAt = Instant.now();
+
+    @ElementCollection
+    private List<String> orderedResources = new ArrayList<>();
+
+    public List<String> getOrderedResources() {
+        return orderedResources;
+    }
+
+    public void addOrderedResource(String resourceId) {
+        this.orderedResources.add(resourceId);
+    }
+
+    @Embedded
+    private UserPreferences userPreferences;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "membership_id")

@@ -74,7 +74,6 @@ public class UserAccountService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         UserPreferences preferences = new UserPreferences(
-                userPreferenceModel.getUserPreferenceString(),
                 userPreferenceModel.getGenres(),
                 userPreferenceModel.getKnowledgeLevel(),
                 userPreferenceModel.getKnowledgeType()

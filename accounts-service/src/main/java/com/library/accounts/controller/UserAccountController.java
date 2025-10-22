@@ -109,7 +109,6 @@ public class UserAccountController {
                     }
                     UserPreferences prefs = user.getUserPreferences();
                     UserPreferenceModel dto = new UserPreferenceModel(
-                            prefs.getPreferenceString(),
                             prefs.getPreferredGenres(),
                             prefs.getKnowledgeLevel(),
                             prefs.getKnowledgeType()

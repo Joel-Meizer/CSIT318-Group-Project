@@ -6,15 +6,13 @@ import java.util.List;
 
 public class UserPreferenceModel {
 
-    private String userPreferenceString;
     private List<String> genres;
     private KnowledgeLevel knowledgeLevel;
     private KnowledgeType knowledgeType;
 
     public UserPreferenceModel() {}
 
-    public UserPreferenceModel(String userPreferenceString, List<String> genres, KnowledgeLevel knowledgeLevel, KnowledgeType knowledgeType) {
-        this.userPreferenceString = userPreferenceString;
+    public UserPreferenceModel(List<String> genres, KnowledgeLevel knowledgeLevel, KnowledgeType knowledgeType) {
         this.genres = genres;
         this.knowledgeLevel = knowledgeLevel;
         this.knowledgeType = knowledgeType;
@@ -43,8 +41,4 @@ public class UserPreferenceModel {
     public void setKnowledgeType(KnowledgeType knowledgeType) {
         this.knowledgeType = knowledgeType;
     }
-
-    public String getUserPreferenceString() { return this.userPreferenceString; }
-
-    public void setUserPreferenceString(String userPreferenceString) { this.userPreferenceString = userPreferenceString; }
 }
