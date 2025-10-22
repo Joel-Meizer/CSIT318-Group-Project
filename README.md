@@ -104,15 +104,15 @@ curl -X GET http://localhost:8083/api/orders/user/{userId}
 ```
 4. Create a standard order (amount < $100)
 ```
-curl -X POST http://localhost:8083/api/orders -H "Content-Type: application/json" -d "{\"userId\": 1, \"items\": [{\"productId\": 101, \"productName\": \"Introduction to Java\", \"quantity\": 1, \"price\": 45.00}]}"
+curl -X POST http://localhost:8083/api/orders -H "Content-Type: application/json" -d "{\"userId\": 1, \"items\": [{\"productId\": \"bfd3617e-9081-4d63-b437-08ec93bd983d\", \"productName\": \"Introduction to Java\", \"quantity\": 1, \"price\": 45.00}]}"
 ```
 5. Create a high-value order (amount > $100) - Triggers HIGH-VALUE alert and stream analytics
 ```
-curl -X POST http://localhost:8083/api/orders -H "Content-Type: application/json" -d "{\"userId\": 2, \"items\": [{\"productId\": 102, \"productName\": \"Premium Course\", \"quantity\": 1, \"price\": 150.00}]}"
+curl -X POST http://localhost:8083/api/orders -H "Content-Type: application/json" -d "{\"userId\": 2, \"items\": [{\"productId\": \"bfd3617e-9081-4d63-b437-08ec93bd983e\", \"productName\": \"Premium Course\", \"quantity\": 1, \"price\": 150.00}]}"
 ```
 6. Create an anomaly order (significantly above average) - Triggers ANOMALY detection
 ```
-curl -X POST http://localhost:8083/api/orders -H "Content-Type: application/json" -d "{\"userId\": 3, \"items\": [{\"productId\": 103, \"productName\": \"Enterprise Package\", \"quantity\": 1, \"price\": 500.00}]}"
+curl -X POST http://localhost:8083/api/orders -H "Content-Type: application/json" -d "{\"userId\": 3, \"items\": [{\"productId\": \"bfd3617e-9081-4d63-b437-08ec93bd983f\", \"productName\": \"Enterprise Package\", \"quantity\": 1, \"price\": 500.00}]}"
 ```
 7. Complete an order (substitute {orderId} - triggers OrderCompletedEvent for Suggestion Service)
 ```
