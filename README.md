@@ -5,51 +5,139 @@ service that provides users an easy way to access resources for educational purp
 that may be suitable, while also assisting in pinpointing key information within these resources collected.
 
 Altogether we have the following 5 microservices
-- ### Account Service
-- ### Order Service
-- ### Guides Service (Agentic Component)
-- ### Resource Service
-- ### Suggestion Service (Agentic Component)
+- **Account Service**
+- **Order Service**
+- **Guides Service (Agentic Component)**
+- **Resource Service**
+- **Suggestion Service (Agentic Component)**
 
 Below you should find outlined test cases alongside code to assist in hitting each use case of our system.
 # Introduction to our services + test code
-## Account Service
+## Prerequisites:
+> [!CAUTION]
+> Failure to complete these steps will prevent the project from executing
+- `Google Gemini API Key` (can be created at https://aistudio.google.com/api-keys):
+  - Create a new environment variable for both the Guide-Service and Suggestion-Service, it must be formatted `GEMINI_API_KEY={api_key}`
+- `Youtube API Key` (a free key is provided):
+  - Create a new environment variable for the Guide-Service, it must be formatted `YOUTUBE_API_KEY=AIzaSyAGqvBRtBMeY1XbVMVXrD20wmg1mf7tvHA`
+- `Docker Desktop` must be installed on your system
+  - Once you have opened docker desktop, run the following command at the root directory (./CSIT381-Group-Project)
+```
+docker-compose up -d
+```
+
+This should then create 2 containers within your docker container registry, ensure both containers have started, then you can proceed with the tests below.
+![Docker Container](docker-desktop.png "Docker Container")
+
+## Start up all Microservices in the following order:
+> [!IMPORTANT]  
+> If you are unable to click "Start Application" for each one of these services, you may need to run ```mvn spring-boot:run``` within the directory of each service in a separate terminal
+1. Resource Service
+2. Accounts Service
+3. Order Service
+4. Guides Service
+5. Suggestion Service
+# Account Service
 1. Creating an account
 ```
-curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d '{"name": "Alice", "age": 30}'
+curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d "{\"email\": \"test.user@gmail.com\", \"firstName\": \"Test\", \"lastName\": \"User\"}"
 ```
 
+2. Viewing all user accounts (keep note of the ```{userId}``` from the result for future tests)
 ```
-curl -X GET http://localhost:3000/api/example 
-```
-
-## Resource Service
-
-```
-curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d '{"name": "Alice", "age": 30}'
+curl -X GET http://localhost:8080/api/users 
 ```
 
+3. Adding a research goal to a user account (provide a ```{userId}``` from a result of step 1)
 ```
-curl -X GET http://localhost:3000/api/example
-```
-
-## Order Service
-
-```
-curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d '{"name": "Alice", "age": 30}'
+curl -X PUT http://localhost:8080/api/users/{userId}/research-goal -H "Content-Type: application/json" -d "{\"researchGoal\": \"Gain knowledge in any random topic\"}"
 ```
 
-## Guide Service
-
+4. Viewing a specific user account (provide a ```{userId}``` from a result of step 1)
 ```
-curl -X POST http://localhost:3000/api/example -H "Content-Type: application/json" -d '{"name": "Alice", "age": 30}'
-```
-
-```
-curl -X GET http://localhost:3000/api/example
+curl -X GET http://localhost:8080/api/users/{userId} 
 ```
 
-## Suggestion Service
+5. Modifying a specific user account (provide a ```{userId}``` from a result of step 1)
+```
+curl -X PUT http://localhost:8080/api/users/{userId} -H "Content-Type: application/json" -d "{\"lastName\": \"User-Modified\"}"
+```
+
+6. Cancelling a membership
+```
+curl -X POST http://localhost:8080/api/users/{userId}/cancel-membership
+```
+
+7. Create another user, then modify their user preferences (this is key for the suggestion service)
+```
+curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d "{\"email\": \"test.user2@gmail.com\", \"firstName\": \"Test\", \"lastName\": \"User\"}"
+curl -X PATCH http://localhost:8080/api/users/{userId}/update-preferences -H "Content-Type: application/json" -d "{\"knowledgeType\":\"Video\",\"knowledgeLevel\":\"Proficient\",\"userPreferenceString\":\"I have been in the health sector for a couple of months now and I want to start learning more about dieting\",\"genres\":[\"Machine Learning\",\"Health and Medicine\"]}"
+```
+# Resource Service
+1. Load all resources into the database, grant the upload_resources.sh script executable permissions and run it
+```
+./upload_resources.sh
+```
+
+2. Collect all resources (keep note of a ```{resourceId}``` from the result for future tests)
+```
+curl -X GET http://localhost:8081/resources
+```
+
+3. Collect a specific resource (provide a ```{resourceId}``` from a result of step 1)
+```
+curl -X GET http://localhost:8081/resources/{resourceId}
+```
+
+# Order Service
+1. Get all orders
+```
+curl -X GET http://localhost:8083/api/orders
+```
+2. Get a specific order by ID (substitute {orderId} with an ID from step 1)
+```
+curl -X GET http://localhost:8083/api/orders/{orderId}
+```
+3. Get orders for a specific user 
+```
+curl -X GET http://localhost:8083/api/orders/user/{userId}
+```
+4. Create a standard order (amount < $100)
+```
+curl -X POST http://localhost:8083/api/orders -H "Content-Type: application/json" -d "{\"userId\": 1, \"items\": [{\"productId\": 101, \"productName\": \"Introduction to Java\", \"quantity\": 1, \"price\": 45.00}]}"
+```
+5. Create a high-value order (amount > $100) - Triggers HIGH-VALUE alert and stream analytics
+```
+curl -X POST http://localhost:8083/api/orders -H "Content-Type: application/json" -d "{\"userId\": 2, \"items\": [{\"productId\": 102, \"productName\": \"Premium Course\", \"quantity\": 1, \"price\": 150.00}]}"
+```
+6. Create an anomaly order (significantly above average) - Triggers ANOMALY detection
+```
+curl -X POST http://localhost:8083/api/orders -H "Content-Type: application/json" -d "{\"userId\": 3, \"items\": [{\"productId\": 103, \"productName\": \"Enterprise Package\", \"quantity\": 1, \"price\": 500.00}]}"
+```
+7. Complete an order (substitute {orderId} - triggers OrderCompletedEvent for Suggestion Service)
+```
+curl -X PUT http://localhost:8083/api/orders/{orderId}/complete -H "Content-Type: application/json"
+```
+8. Get order history for recommendations (substitute {userId} - used by Suggestion Service)
+```
+curl -X GET http://localhost:8083/api/orders/history/{userId}
+```
+
+# Guide Service
+1. Collect all guides
+```
+curl -X GET http://localhost:8082/guides
+```
+2. Collect a specific guide (provide a ```{guideId}``` from a result of step 1)
+```
+curl -X GET http://localhost:8082/guide/{guideId}
+```
+3. Generate a guide for an article (Agentic Component), provide ```{resourceId}``` from step 2 of the resource service tests and ```{userId}``` from step 2 of the account service tests, best results if the research goal matches the resource topic
+```
+curl -X GET "http://localhost:8082/guide?resourceId={resourceId}&userId={userId}"
+```
+
+# Suggestion Service
 1. Get All existing suggestions within the suggestionRepository
 ```
 curl -X GET http://localhost:8084/suggestions
@@ -60,7 +148,7 @@ curl -X GET http://localhost:8084/suggestions/{suggestionId}
 ```
 3. Generate a suggestion via manual input filters (you can modify the body to accept any Educational Resource properties, in this case we are using the ```knowledgeLevel``` property)
 ```
-curl -X POST http://localhost:8084/suggestions/generate -H "Content-Type: application/json" -d '{"knowledgeLevel": "Beginner"}'
+curl -X POST http://localhost:8084/suggestions/generate -H "Content-Type: application/json" -d "{\"knowledgeLevel\": \"Beginner\"}"
 ```
 4. Generate a suggestion from a user's order history (Agentic Component) (substitute ```{userId}``` for a userId from step 2 of the account service tests)
 ```
@@ -69,15 +157,4 @@ curl -X POST http://localhost:8084/suggestions/generate/{userId}/orderHistory
 5. Generate a suggestion from a user's profile preferences (Agentic Component) (substitute ```{userId}``` for a userId from step 2 of the account service tests)
 ```
 curl -X POST http://localhost:8084/suggestions/generate/{userId}/userPreferences
-```
-
-# Events Simulation
-- Some of the previously completed actions will trigger events handled by apache kafka or the spring application event repository methods. To see these events take place, run the following command at the directory ``../CSIT318-Group-Project/``
-```
-apache kafka startup cmd
-```
-
-# Streaming Simulation
-```
-example for streaming simulation
 ```

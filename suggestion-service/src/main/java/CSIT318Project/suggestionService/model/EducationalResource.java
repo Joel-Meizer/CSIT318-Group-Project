@@ -1,44 +1,36 @@
 package CSIT318Project.suggestionService.model;
 import CSIT318Project.suggestionService.Enums.KnowledgeLevel;
 import CSIT318Project.suggestionService.Enums.KnowledgeType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED) // Enables subclassing like Paper, Book, etc.
-public abstract class EducationalResource extends AbstractAggregateRoot<EducationalResource> {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class EducationalResource {
 
     @Id
-    @GeneratedValue
-    private UUID resourceId;
-
-    @Column
+    private String resourceId;
     private String title;
-
-    @Column
     private String description;
-
-    @ElementCollection
     private String[] authors;
-
-    @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date publicationDate;
-
-    @Column
     private String genre;
-
-    @Column
     private String url;
-
-    @Column
     private KnowledgeLevel knowledgeLevel;
+    private KnowledgeType knowledgeType;
 
-    public void EducationalResource() {
-    }
+    public EducationalResource() {}
 
-    public String getResourceId() { return resourceId.toString(); }
+    public void setResourceId(String resourceId) { this.resourceId = resourceId; }
+
+    public String getResourceId() { return resourceId; }
 
     public String getTitle() {
         return title;
@@ -72,7 +64,9 @@ public abstract class EducationalResource extends AbstractAggregateRoot<Educatio
 
     public void setKnowledgeLevel(KnowledgeLevel knowledgeLevel) { this.knowledgeLevel = knowledgeLevel; }
 
-    public abstract KnowledgeType getKnowledgeType();
+    public KnowledgeType getKnowledgeType() { return knowledgeType; }
+
+    public void setKnowledgeType(KnowledgeType knowledgeType) { this.knowledgeType = knowledgeType; }
 
     @Override
     public String toString() {

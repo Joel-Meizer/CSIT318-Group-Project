@@ -21,9 +21,9 @@ public class Guide {
 
 	@Column
 	private UUID resourceId;
-	@Column
+	@Column(columnDefinition = "TEXT")
 	private String researchGoal;
-	@Column
+	@Column(columnDefinition = "TEXT")
 	private String summary;
 
 	@ElementCollection
@@ -35,6 +35,10 @@ public class Guide {
 	private List<ExternalVideo> externalVideos;
 
 	public Guide() {
+	}
+
+	public UUID getId() {
+		return id;
 	}
 
 	// Getters and Setters

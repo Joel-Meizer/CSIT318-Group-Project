@@ -2,6 +2,7 @@ package CSIT318Project.resourceService.service.dto;
 
 import CSIT318Project.resourceService.Enums.KnowledgeLevel;
 import CSIT318Project.resourceService.Enums.KnowledgeType;
+import CSIT318Project.resourceService.model.EducationalResource;
 
 import java.util.Date;
 import java.util.UUID;
@@ -17,6 +18,7 @@ public class ResourceDTO {
     private String url;
     private KnowledgeLevel knowledgeLevel;
     private KnowledgeType knowledgeType;
+    private String content;
 
     public ResourceDTO() {
     }
@@ -31,6 +33,7 @@ public class ResourceDTO {
         this.url = resource.getUrl();
         this.knowledgeLevel = resource.getKnowledgeLevel();
         this.knowledgeType = resource.getKnowledgeType();
+        this.content = resource.getContent();
     }
 
     public String getResourceId() {
@@ -103,5 +106,13 @@ public class ResourceDTO {
 
     public void setKnowledgeType(KnowledgeType knowledgeType) {
         this.knowledgeType = knowledgeType;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
