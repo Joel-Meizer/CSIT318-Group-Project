@@ -25,6 +25,7 @@ public class EducationalResource {
     private String url;
     private KnowledgeLevel knowledgeLevel;
     private KnowledgeType knowledgeType;
+    private String content;
 
     public EducationalResource() {}
 
@@ -67,6 +68,10 @@ public class EducationalResource {
     public KnowledgeType getKnowledgeType() { return knowledgeType; }
 
     public void setKnowledgeType(KnowledgeType knowledgeType) { this.knowledgeType = knowledgeType; }
+
+    public String getContent() { return content; }
+
+    public void setContent(String content) { this.content = content; }
 
     @Override
     public String toString() {

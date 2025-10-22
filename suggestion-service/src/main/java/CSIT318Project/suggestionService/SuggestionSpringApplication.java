@@ -35,7 +35,7 @@ public class SuggestionSpringApplication {
     @Bean
     public CommandLineRunner loadDatabase(SuggestionRepository suggestionRepository, EducationalResourceRepository educationalResourceRepository, HttpWebClient webClient) {
         return args -> {
-            String response = webClient.GetRESTAsync("http://localhost:8081/resources");
+            String response = webClient.GetRESTAsync("http://localhost:8081/resources/withoutContent");
 
             if (response != null && !response.isEmpty()) {
                 ObjectMapper mapper = new ObjectMapper();

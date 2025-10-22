@@ -28,6 +28,11 @@ public class ResourceController {
         return resourceService.getAllResources();
     }
 
+    @GetMapping("/resources/withoutContent")
+    List<ResourceDTO> resourcesWithoutContent() {
+        return resourceService.getAllResourcesWithoutContent();
+    }
+
     @GetMapping("/resources/{resourceId}")
     ResourceDTO findBook(@PathVariable UUID resourceId) {
         return resourceService.getResource(resourceId);

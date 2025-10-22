@@ -148,7 +148,7 @@ curl -X GET http://localhost:8084/suggestions/{suggestionId}
 ```
 3. Generate a suggestion via manual input filters (you can modify the body to accept any Educational Resource properties, in this case we are using the ```knowledgeLevel``` property)
 ```
-curl -X POST http://localhost:8084/suggestions/generate -H "Content-Type: application/json" -d "{\"knowledgeLevel\": \"Beginner\"}"
+curl -X POST http://localhost:8084/suggestions/generate -H "Content-Type: application/json" -d "{\"knowledgeLevel\": \"INTERMEDIATE\"}"
 ```
 4. Generate a suggestion from a user's order history (Agentic Component) (substitute ```{userId}``` for a userId from step 2 of the account service tests)
 ```

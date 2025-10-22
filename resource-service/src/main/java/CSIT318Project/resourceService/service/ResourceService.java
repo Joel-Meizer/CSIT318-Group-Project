@@ -34,6 +34,15 @@ public class ResourceService {
 				}).collect(Collectors.toList());
 	}
 
+    public List<ResourceDTO> getAllResourcesWithoutContent() {
+        return resourceRepository.findAll().stream()
+                .map(resource -> {
+                    ResourceDTO resourceDto = new ResourceDTO(resource);
+                    resourceDto.setContent("");
+                    return resourceDto;
+                }).collect(Collectors.toList());
+    }
+
 	public ResourceDTO getResource(UUID resourceId) {
 		EducationalResource resource = resourceRepository.findById(resourceId).orElseThrow(RuntimeException::new);
 		ResourceDTO resourceDto = new ResourceDTO(resource);
