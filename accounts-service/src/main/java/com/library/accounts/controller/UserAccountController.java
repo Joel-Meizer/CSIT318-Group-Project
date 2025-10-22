@@ -40,10 +40,24 @@ public class UserAccountController {
 
         UserAccount user = userOpt.get();
         user.getMembership().setActive(false);
+        user.getMembership().setEndDate(java.time.LocalDate.now());
         userAccountRepository.save(user);
 
-        eventPublisher.publishMembershipCancelled(id);
         return ResponseEntity.ok("Membership cancelled for user ID " + id);
+    }
+
+    @PutMapping("/{id}/membership")
+    public ResponseEntity<UserAccount> setUserMembership(
+            @PathVariable Long id,
+            @RequestBody Membership membership) {
+
+        return userAccountRepository.findById(id)
+                .map(user -> {
+                    user.setMembership(membership);
+                    userAccountRepository.save(user);
+                    return ResponseEntity.ok(user);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
