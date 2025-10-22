@@ -63,7 +63,12 @@ curl -X GET http://localhost:8080/api/users/{userId}
 curl -X PUT http://localhost:8080/api/users/{userId} -H "Content-Type: application/json" -d "{\"lastName\": \"User-Modified\"}"
 ```
 
-6. Cancelling a membership
+6. Setting or updating membership for a user
+```
+ curl -X PUT http://localhost:8080/api/users/{userId}/membership \ -H "Content-Type: application/json" \ -d "{\"type\": \"PREMIUM\", \"startDate\": \"2025-10-22\", \"endDate\": \"2026-10-22\", \"active\": true}"
+```
+
+8.  Cancelling a membership
 ```
 curl -X POST http://localhost:8080/api/users/{userId}/cancel-membership
 ```
