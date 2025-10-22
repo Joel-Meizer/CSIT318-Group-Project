@@ -41,8 +41,8 @@ public class InteractiveQueryServiceImpl {
             while (iterator.hasNext()) {
                 KeyValue<Windowed<String>, Long> record = iterator.next();
                 userOrders.add("UserID " + record.key.key() +
-                        " | Orders: " + record.value +
-                        " | Window: " + record.key.window().startTime());
+                        " Orders: " + record.value +
+                        " Window: " + record.key.window().startTime());
             }
         }
         return userOrders;

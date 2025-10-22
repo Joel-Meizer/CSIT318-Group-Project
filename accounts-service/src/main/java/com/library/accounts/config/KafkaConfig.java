@@ -19,7 +19,7 @@ public class KafkaConfig {
 
     @Bean
     public ConsumerFactory<String, Object> consumerFactory() {
-        JsonDeserializer<Object> deserializer = new JsonDeserializer<>();
+        JsonDeserializer<Object> deserializer = new JsonDeserializer<>(Object.class, false);
         deserializer.addTrustedPackages("*");
 
         Map<String, Object> props = new HashMap<>();
@@ -27,6 +27,8 @@ public class KafkaConfig {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "accounts-service-group");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, deserializer);
+        props.put(JsonDeserializer.TYPE_MAPPINGS,
+                "CSIT318Project.orderService.model.OrderPlacedEvent:com.library.accounts.events.OrderPlacedEvent");
 
         return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), deserializer);
     }
