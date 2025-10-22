@@ -6,6 +6,7 @@ import CSIT318Project.orderService.model.OrderStatus;
 import CSIT318Project.orderService.model.OrderPlacedEvent;
 import CSIT318Project.orderService.model.OrderCompletedEvent;
 import CSIT318Project.orderService.repository.OrderRepository;
+import CSIT318Project.orderService.stream.OrderStreamProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class OrderService {
+
+    @Autowired
+    private OrderStreamProcessor streamProcessor;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -36,6 +40,13 @@ public class OrderService {
                     savedOrder.getTotal()
             );
             orderEventPublisher.publishOrderPlaced(event);
+
+            // DEBUG LINE
+            System.out.println("🔍 Testing stream processor with amount: $" + savedOrder.getTotal());
+
+            // TRIGGER STREAM PROCESSOR
+            streamProcessor.analyzeOrderStream().accept(event);
+
         } catch (Exception e) {
             System.err.println("⚠️ Event publishing failed: " + e.getMessage());
         }
