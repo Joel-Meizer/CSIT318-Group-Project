@@ -2,8 +2,10 @@ package com.library.accounts.enums;
 
 
 public enum KnowledgeLevel {
-    BEGINNER,
-    INTERMEDIATE,
-    ADVANCED,
-    EXPERT
+    Novice,
+    Beginner,
+    Intermediate,
+    Proficient,
+    Expert,
+    Authority
 }
