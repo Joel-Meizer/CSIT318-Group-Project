@@ -80,7 +80,9 @@ curl -X PATCH http://localhost:8080/api/users/{userId}/update-preferences -H "Co
 ```
 
 9. Real-time analysis of orders - (Run after adding orders)
-
+```
+curl -X GET http://localhost:8080/api/analytics/{user-id}/summary
+```
 
 # Resource Service
 1. Load all resources into the database, grant the upload_resources.sh script executable permissions and run it
