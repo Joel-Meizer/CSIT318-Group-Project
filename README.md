@@ -33,8 +33,8 @@ This should then create 2 containers within your docker container registry, ensu
 > [!IMPORTANT]  
 > If you are unable to click "Start Application" for each one of these services, you may need to run ```mvn spring-boot:run``` within the directory of each service in a separate terminal
 1. Resource Service
-2. Accounts Service
-3. Order Service
+2. Order Service
+3. Account Service
 4. Guides Service
 5. Suggestion Service
 # Account Service
@@ -68,16 +68,20 @@ curl -X PUT http://localhost:8080/api/users/{userId} -H "Content-Type: applicati
 curl -X PUT http://localhost:8080/api/users/{user-id}/membership -H "Content-Type: application/json" -d "{\"type\": \"PREMIUM\", \"startDate\": \"2025-10-22\", \"endDate\": \"2026-10-22\", \"active\": true}"
 ```
 
-8.  Cancelling a membership
+7.  Cancelling a membership
 ```
 curl -X POST http://localhost:8080/api/users/{userId}/cancel-membership
 ```
 
-7. Create another user, then modify their user preferences (this is key for the suggestion service)
+8. Create another user, then modify their user preferences (this is key for the suggestion service)
 ```
 curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d "{\"email\": \"test.user2@gmail.com\", \"firstName\": \"Test\", \"lastName\": \"User\"}"
 curl -X PATCH http://localhost:8080/api/users/{userId}/update-preferences -H "Content-Type: application/json" -d "{\"knowledgeType\":\"Video\",\"knowledgeLevel\":\"Proficient\",\"userPreferenceString\":\"I have been in the health sector for a couple of months now and I want to start learning more about dieting\",\"genres\":[\"Machine Learning\",\"Health and Medicine\"]}"
 ```
+
+9. Real-time analysis of orders - (Run after adding orders)
+
+
 # Resource Service
 1. Load all resources into the database, grant the upload_resources.sh script executable permissions and run it
 ```
