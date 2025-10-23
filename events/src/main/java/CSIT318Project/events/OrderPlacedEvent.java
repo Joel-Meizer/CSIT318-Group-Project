@@ -1,4 +1,4 @@
-package CSIT318Project.orderService.model;
+package CSIT318Project.events;
 
 import java.time.LocalDateTime;
 

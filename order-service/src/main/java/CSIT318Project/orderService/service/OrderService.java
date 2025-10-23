@@ -1,9 +1,10 @@
 package CSIT318Project.orderService.service;
 
 import CSIT318Project.orderService.model.Order;
+import CSIT318Project.events.OrderPlacedEvent;
+
 import CSIT318Project.orderService.model.OrderItem;
 import CSIT318Project.orderService.model.OrderStatus;
-import CSIT318Project.orderService.model.OrderPlacedEvent;
 import CSIT318Project.orderService.model.OrderCompletedEvent;
 import CSIT318Project.orderService.repository.OrderRepository;
 import CSIT318Project.orderService.stream.OrderStreamProcessor;

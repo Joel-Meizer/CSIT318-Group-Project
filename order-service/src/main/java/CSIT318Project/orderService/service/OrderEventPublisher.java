@@ -1,6 +1,6 @@
 package CSIT318Project.orderService.service;
 
-import CSIT318Project.orderService.model.OrderPlacedEvent;
+import CSIT318Project.events.OrderPlacedEvent;
 import CSIT318Project.orderService.model.OrderCompletedEvent;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;

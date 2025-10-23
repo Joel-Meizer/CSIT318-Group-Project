@@ -1,8 +1,8 @@
 package CSIT318Project.orderService.stream;
 
-import CSIT318Project.orderService.model.OrderPlacedEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import CSIT318Project.events.OrderPlacedEvent;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
